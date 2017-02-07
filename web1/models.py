@@ -12,6 +12,7 @@ class Profile(Model):
     user = OneToOneField(User, on_delete=CASCADE, verbose_name=_('Usuario'))
     event_url = CharField(max_length=255, verbose_name=_('Nombre Evento'))
     email = EmailField()
+    sites = OneToOneField(Site, on_delete=CASCADE, verbose_name=_('Sitios'))
 
     def __str__(self):
         return self.user.username
@@ -20,15 +21,17 @@ class Profile(Model):
 class pagina_web(Model):
     logo = ImageField(verbose_name=_('logo'), upload_to='paginas/logos/')
     banner = ImageField(verbose_name=_('banner'), upload_to='paginas/banner/')
-    user = ForeignKey(User, on_delete=CASCADE, verbose_name=_('Usuario'))
+    user = OneToOneField(User, on_delete=CASCADE, verbose_name=_('Usuario'))
     slogan = CharField(max_length=100, verbose_name=_('Slogan'))
+    sites = OneToOneField(Site, on_delete=CASCADE, verbose_name=_('Sitios'))
 
 
 class Patrocinadores(Model):
     name = CharField(max_length=100, verbose_name=_('Nombre'))
     web = URLField(verbose_name=_('Web'))
     logo = ImageField(verbose_name=_('logo'), upload_to='logos/')
-    user = ForeignKey(User, on_delete=CASCADE, verbose_name=_('Usuario'))
+    user = OneToOneField(User, on_delete=CASCADE, verbose_name=_('Usuario'))
+    sites = OneToOneField(Site, on_delete=CASCADE, verbose_name=_('Sitios'))
 
 
 class centro(Model):
@@ -37,7 +40,8 @@ class centro(Model):
     title = CharField(max_length=100, verbose_name=_('Titulo'), blank=True)
     country = CharField(max_length=100, verbose_name=_('Pais'), blank=True)
     places = CharField(max_length=100, verbose_name=_('Lugar'), blank=True)
-    user = ForeignKey(User, on_delete=CASCADE, verbose_name=_('Usuario'))
+    user = OneToOneField(User, on_delete=CASCADE, verbose_name=_('Usuario'))
+    sites = OneToOneField(Site, on_delete=CASCADE, verbose_name=_('Sitios'))
 
 
 class enlaces(Model):
@@ -48,3 +52,4 @@ class enlaces(Model):
     red_social = CharField(max_length=8, verbose_name=_('Red social'), choices=redes)
     direccion = URLField(verbose_name=_('Direccion'))
     user = ForeignKey(User, on_delete=CASCADE, verbose_name=_('Usuario'))
+    sites = OneToOneField(Site, on_delete=CASCADE, verbose_name=_('Sitios'))

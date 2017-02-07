@@ -1,5 +1,4 @@
 from django.contrib import admin
-
 from .models import *
 from .models import Profile
 from actividades.models import *
@@ -25,9 +24,9 @@ class TopicAdmin(admin.ModelAdmin):
         obj.save()
 
 
-@admin.register(pagina_web)
+@admin.register(pagina_web, centro, Patrocinadores, enlaces)
 class Pagina_web_Admin(admin.ModelAdmin):
-    exclude = ('user',)
+    exclude = ('user', 'sites')
 
     def get_queryset(self, request):
         qs = super(Pagina_web_Admin, self).get_queryset(request)
@@ -37,61 +36,8 @@ class Pagina_web_Admin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         obj.user = request.user
+        obj.sites = get_current_site(request)
         obj.save()
-
-
-@admin.register(centro)
-class Centro_Admin(admin.ModelAdmin):
-    exclude = ('user',)
-
-    def get_queryset(self, request):
-        qs = super(Centro_Admin, self).get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(user=request.user)
-
-    def save_model(self, request, obj, form, change):
-        obj.user = request.user
-        obj.save()
-
-
-@admin.register(Patrocinadores)
-class Patrocinadores_Admin(admin.ModelAdmin):
-    exclude = ('user',)
-
-    def get_queryset(self, request):
-        qs = super(Patrocinadores_Admin, self).get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(user=request.user)
-
-    def save_model(self, request, obj, form, change):
-        obj.user = request.user
-        obj.save()
-
-
-@admin.register(enlaces)
-class Enlaces_Admin(admin.ModelAdmin):
-    exclude = ('user',)
-
-    def get_queryset(self, request):
-        qs = super(Enlaces_Admin, self).get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(user=request.user)
-
-    def save_model(self, request, obj, form, change):
-        obj.user = request.user
-        obj.save()
-
-
-@admin.register(Profile)
-class ProfileAdmin(admin.ModelAdmin):
-    def get_queryset(self, request):
-        qs = super(ProfileAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(user=request.user)
 
 
 @admin.register(SpeechType)
@@ -111,29 +57,26 @@ class SpeechTypeAdmin(admin.ModelAdmin):
         return qs.filter(user=request.user)
 
 
-@admin.register(Speech)
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    exclude = ('sites', 'user')
+
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        obj.sites = get_current_site(request)
+        obj.save()
+
+    def get_queryset(self, request):
+        qs = super(ProfileAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(user=request.user)
+
+
+@admin.register(Speech, SpeechResource, Forum_User_Profile)
 class SpeechAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         qs = super(SpeechAdmin, self).get_queryset(request)
         if request.user.is_superuser:
             return qs
         return qs.filter(user=request.user)
-
-
-@admin.register(SpeechResource)
-class SpeechResourceAdmin(admin.ModelAdmin):
-    def get_queryset(self, request):
-        qs = super(SpeechResourceAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(user=request.user)
-
-
-@admin.register(Forum_User_Profile)
-class Forum_User_ProfileAdmin(admin.ModelAdmin):
-    def get_queryset(self, request):
-        qs = super(Forum_User_ProfileAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(user=request.user)
-

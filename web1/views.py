@@ -17,7 +17,7 @@ from .forms import ProfileForm
 def index(request):
 
     if get_current_site(request).domain != 'localhost:8000':
-        return render(request, 'sitios_web/home_sites.html', {'logo': pagina_web.objects.filter(user=request.user)})
+        return render(request, 'sitios_web/home_sites.html', {'logo': pagina_web.objects.filter(sites=get_current_site(request))})
     else:
         return render(request, 'plataforma/home.html')
 
