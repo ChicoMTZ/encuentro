@@ -8,7 +8,7 @@ import os
 def inicio(request):
 
     currentSite = Site.objects.get_current()
-    if currentSite.domain == 'sitio.com':
+    if currentSite.domain == 'pp.localhost':
         current_site = Site.objects.get_current()
         return render(request, 'tema1/hola.html', {'fil': Article.objects.filter(sites=current_site)})
     elif currentSite.domain == 'vendo.sitio2.com':
@@ -18,7 +18,13 @@ def inicio(request):
 
 def index(request):
 
+    domain = Site.objects.get_current().domain
     return render(request, 'home.html')
+
+def apis(request):
+
+    return render(request, 'home.html')
+
 
 
 def crear(request):
