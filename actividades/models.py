@@ -40,7 +40,6 @@ class Topic(Model):
     date_created = DateTimeField(verbose_name=_('Fecha de Creado'), auto_now_add=True)
     sites = ForeignKey(Site, on_delete=CASCADE, related_name='topic_user', verbose_name=_('Sitios'))
 
-
     class Meta:
         ordering = ["-date_created"]
 

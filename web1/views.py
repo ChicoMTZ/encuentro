@@ -18,7 +18,7 @@ from django.contrib.contenttypes.models import ContentType
 
 def index(request):
     if get_current_site(request).domain != 'localhost:8000':
-        return render(request, 'sitios_web/home_sites.html', {'imagen': WebBuilder.objects.filter(sites=get_current_site(request))})
+        return render(request, 'sitios_web/home_sites.html', {'sitios': WebBuilder.objects.filter(sites=get_current_site(request))})
     else:
         # CreargruposPermisos()
         return render(request, 'plataforma/home.html')

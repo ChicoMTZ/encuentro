@@ -50,7 +50,7 @@
             <p>No existen recursos para esta actividad</p>
         {% endfor %}
         <br>
-        <a href="{% url 'subir_recurso' speech_details.pk %}" class="btn btn-success">Subir recurso</a>
+        <a href="{% url 'activity:subir_recurso' speech_details.pk %}" class="btn btn-success">Subir recurso</a>
    {% elif speech_details in user.profile.matriculatedspeechs.all %}
         <a class="matricula-link-detail" data-pk="{{ speech_details.pk}}">
             <span>Desmatricularme</span>

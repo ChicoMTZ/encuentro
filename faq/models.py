@@ -2,8 +2,8 @@
 from __future__ import unicode_literals
 from django.db.models import *
 from web1.models import Eventos
-
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.sites.models import Site
 
 
 class CategoriaPregunta(Model):
@@ -20,7 +20,9 @@ class Pregunta(Model):
     fechaCreacion = DateField(verbose_name=_('Fecha de Creación'), auto_now_add=True)
     publicada = BooleanField(verbose_name=_('Publicado'))
     pregunta = TextField(verbose_name=_('Pregunta'))
-    evento = ForeignKey(Eventos, verbose_name=_('Evento'), on_delete=CASCADE)
+    sites = OneToOneField(Site, on_delete=CASCADE, verbose_name=_('Sitios'))
 
     def __str__(self):
         return self.pregunta
+
+

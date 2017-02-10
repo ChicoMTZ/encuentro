@@ -4,12 +4,13 @@ from django.views.generic import *
 from becas.models import Inscription
 from django.utils.decorators import method_decorator
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.exceptions import ObjectDoesNotExist
 
 
 @method_decorator(login_required, name='dispatch')
 class becas(CreateView, SuccessMessageMixin):
     template_name = 'becas/becas.html'
-    model = Inscription
     context_object_name = 'becas'
     success_url = '/'
     fields = ['mozilla_subvention_description']
@@ -19,14 +20,16 @@ class becas(CreateView, SuccessMessageMixin):
         form.instance.subvention_request = True
         form.instance.user = self.request.user
         form.instance.preregistered = True
+        form.instance.sites = get_current_site(self.request)
 
         return super(becas, self).form_valid(form)
 
     def dispatch(self, request, *args, **kwargs):
-        if not Inscription.objects.filter(user=self.request.user):
+        if not Inscription.objects.filter(user=self.request.user, sites=get_current_site(self.request)):
             return super(becas, self).dispatch(request, *args, **kwargs)
 
-        estado = Inscription.objects.get(user=self.request.user)
+        estado = Inscription.objects.get(user=self.request.user, sites=get_current_site(self.request))
+
         if estado.subvention_request and estado.not_registered and estado.registered:
             return render(self.request, 'becas/becas.html', {'estado': 'Analizando'})
         elif estado.subvention_request and estado.not_registered == False and estado.registered:
@@ -36,3 +39,6 @@ class becas(CreateView, SuccessMessageMixin):
             return render(self.request, 'becas/becas.html', {'estado': 'Denegado'})
         elif estado.subvention_request and estado.not_registered == False and estado.registered == False:
             return render(self.request, 'becas/becas.html', {'estado': 'Analizando'})
+
+    def get_queryset(self):
+        return Inscription.objects.filter(sites=get_current_site(self.request))

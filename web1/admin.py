@@ -1,8 +1,10 @@
 from django.contrib import admin
 from django.contrib.admin import site, AdminSite
 from .models import *
-from .models import Profile
 from actividades.models import *
+from becas.models import Inscription
+from camisetas.models import Tshirt, TshirtStyle
+from faq.models import *
 from django.utils.text import slugify
 from django.contrib.sites.models import Site
 from django.contrib.sites.shortcuts import get_current_site
@@ -27,7 +29,6 @@ for model_cls, admin_obj in list(site._registry.items()):
      admin_site.register(model_cls, type(admin_obj))
 
 
-@admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
     exclude = ('user', 'slug', 'sites')
 
@@ -44,7 +45,6 @@ class TopicAdmin(admin.ModelAdmin):
         obj.save()
 
 
-@admin.register(WebBuilder, Patrocinadores, enlaces)
 class Pagina_web_Admin(admin.ModelAdmin):
     exclude = ('user', 'sites')
 
@@ -59,7 +59,6 @@ class Pagina_web_Admin(admin.ModelAdmin):
         obj.save()
 
 
-@admin.register(SpeechType)
 class SpeechTypeAdmin(admin.ModelAdmin):
     exclude = ('slug', 'user')
     list_display = ('name',)
@@ -76,7 +75,6 @@ class SpeechTypeAdmin(admin.ModelAdmin):
         return qs.filter(user=request.user)
 
 
-@admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     exclude = ('sites', 'user')
 
@@ -92,7 +90,6 @@ class ProfileAdmin(admin.ModelAdmin):
         return qs.filter(user=request.user)
 
 
-@admin.register(Speech, SpeechResource, Forum_User_Profile)
 class SpeechAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         qs = super(SpeechAdmin, self).get_queryset(request)
@@ -101,13 +98,33 @@ class SpeechAdmin(admin.ModelAdmin):
         return qs.filter(user=request.user)
 
 
+class PatrocinadoresAdmin(admin.ModelAdmin):
+    exclude = ('sites',)
+
+    def get_queryset(self, request):
+        qs = super(PatrocinadoresAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(user=request.user)
+
+    def save_model(self, request, obj, form, change):
+        obj.sites = get_current_site(request)
+        obj.save()
+
+
 admin_site.register(Profile, ProfileAdmin)
 admin_site.register(Speech, SpeechAdmin)
 admin_site.register(SpeechType, SpeechTypeAdmin)
 admin_site.register(SpeechResource, SpeechAdmin)
 admin_site.register(Forum_User_Profile, SpeechAdmin)
 admin_site.register(WebBuilder, Pagina_web_Admin)
+admin_site.register(Topic, TopicAdmin)
+admin_site.register(TshirtStyle)
+admin_site.register(Tshirt)
+admin_site.register(Inscription)
+admin_site.register(CategoriaPregunta)
+admin_site.register(Pregunta)
+admin_site.register(Patrocinadores, PatrocinadoresAdmin)
 
-# codigo maikel
 
 

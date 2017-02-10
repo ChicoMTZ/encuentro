@@ -15,7 +15,7 @@
             <div class="col-sm-3">
                 <div class="card">
                     <div class="header">
-                        <a href="{% url 'Forum_Detail' foo.topic.slug foo.slug %}">
+                        <a href="{% url 'activity:Forum_Detail' foo.topic.slug foo.slug %}">
                             <h3>{{ foo.title }}</h3>
                         </a>
                     </div>
