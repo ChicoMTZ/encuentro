@@ -1,10 +1,30 @@
 from django.contrib import admin
+from django.contrib.admin import site, AdminSite
 from .models import *
 from .models import Profile
 from actividades.models import *
 from django.utils.text import slugify
 from django.contrib.sites.models import Site
 from django.contrib.sites.shortcuts import get_current_site
+from django.contrib.auth.admin import Group, User
+from django.views.decorators.cache import never_cache
+from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.contrib.admin.forms import AdminAuthenticationForm
+from django.utils.translation import ugettext_lazy as _
+from django.urls import NoReverseMatch, reverse
+from django.http import Http404, HttpResponseRedirect
+from web1.forms import Form_Admin
+
+
+class MyAdminSite(AdminSite):
+    site_header = 'Monty Python administration'
+    login_form = Form_Admin
+
+admin_site = MyAdminSite(name='myadmin')
+admin_site.register(Eventos)
+
+for model_cls, admin_obj in list(site._registry.items()):
+     admin_site.register(model_cls, type(admin_obj))
 
 
 @admin.register(Topic)
@@ -24,7 +44,7 @@ class TopicAdmin(admin.ModelAdmin):
         obj.save()
 
 
-@admin.register(pagina_web, centro, Patrocinadores, enlaces)
+@admin.register(WebBuilder, Patrocinadores, enlaces)
 class Pagina_web_Admin(admin.ModelAdmin):
     exclude = ('user', 'sites')
 
@@ -35,7 +55,6 @@ class Pagina_web_Admin(admin.ModelAdmin):
         return qs.filter(user=request.user)
 
     def save_model(self, request, obj, form, change):
-        obj.user = request.user
         obj.sites = get_current_site(request)
         obj.save()
 
@@ -80,3 +99,15 @@ class SpeechAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             return qs
         return qs.filter(user=request.user)
+
+
+admin_site.register(Profile, ProfileAdmin)
+admin_site.register(Speech, SpeechAdmin)
+admin_site.register(SpeechType, SpeechTypeAdmin)
+admin_site.register(SpeechResource, SpeechAdmin)
+admin_site.register(Forum_User_Profile, SpeechAdmin)
+admin_site.register(WebBuilder, Pagina_web_Admin)
+
+# codigo maikel
+
+

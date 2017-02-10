@@ -15,7 +15,8 @@ from django.core.exceptions import ObjectDoesNotExist
 
 @method_decorator(login_required, name='dispatch')
 class foro(ListView):
-    template_name = 'sitios_web/foro/foro.html'
+    template_name = 'foro/foro.html'
+
     def get(self, request, *arg, **kwargs):
         if get_current_site(request).domain == 'localhost:8000':
             raise Http404
@@ -27,7 +28,7 @@ class foro(ListView):
 @method_decorator(login_required, name='dispatch')
 class foro_topic(ListView):
 
-    template_name = 'sitios_web/foro/foro_topic.html'
+    template_name = 'foro/foro_topic.html'
     context_object_name = 'topic_list'
 
     def get_queryset(self, *args, **kwargs):
@@ -51,7 +52,7 @@ class foro_topic(ListView):
 @method_decorator(login_required, name='dispatch')
 class foro_detail(ListView):
 
-    template_name = 'sitios_web/foro/foro_detail.html'
+    template_name = 'foro/foro_detail.html'
     context_object_name = 'speech_details'
 
     def get_queryset(self, *args, **kwargs):
@@ -64,10 +65,11 @@ class foro_detail(ListView):
             raise Http404
         return super(foro_detail, self).get(request, *arg, **kwargs)
 
+
 @method_decorator(login_required, name='dispatch')
 class foro_types(ListView):
 
-    template_name = 'sitios_web/foro/foro_types.html'
+    template_name = 'foro/foro_types.html'
     context_object_name = 'foro_types'
 
     def get_queryset(self, *args, **kwargs):
@@ -79,9 +81,10 @@ class foro_types(ListView):
             raise Http404
         return super(foro_types, self).get(request, *arg, **kwargs)
 
+
 @method_decorator(login_required, name='dispatch')
 class insert_speech(SuccessMessageMixin, CreateView):
-    template_name = 'sitios_web/foro/insert_speech.html'
+    template_name = 'foro/insert_speech.html'
     model = Speech
     form_class = InsertSpeech
     success_url = '/activity/'
@@ -112,7 +115,7 @@ class insert_speech(SuccessMessageMixin, CreateView):
 class subirRecurso(CreateView):
     model = SpeechResource
     fields = ('recurso', )
-    template_name = 'sitios_web/foro/subir_recurso.html'
+    template_name = 'foro/subir_recurso.html'
 
     def form_valid(self, form):
         form.instance.speech = get_object_or_404(Speech, pk=self.kwargs['speech_id'])

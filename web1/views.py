@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import render
 from django.contrib.sites.models import Site
+from httpie.cli import content_type
 from registration.backends.hmac.views import RegistrationView
 from django.core.urlresolvers import set_urlconf, get_urlconf
 from registration.forms import *
@@ -11,31 +12,31 @@ from django.contrib.sites.shortcuts import get_current_site
 from web1.models import *
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
-from .forms import ProfileForm
+from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
 
 
 def index(request):
-
     if get_current_site(request).domain != 'localhost:8000':
-        return render(request, 'sitios_web/home_sites.html', {'logo': pagina_web.objects.filter(sites=get_current_site(request))})
+        return render(request, 'sitios_web/home_sites.html', {'imagen': WebBuilder.objects.filter(sites=get_current_site(request))})
     else:
+        # CreargruposPermisos()
         return render(request, 'plataforma/home.html')
 
-class createUser(RegistrationView):
 
-    template_name = 'usuarios/create_profile.html'
-
-    def register(self, form):
-        formuser = RegistrationForm(data={'username': form.cleaned_data["username"], 'email': form.cleaned_data["email"], 'password1': form.cleaned_data["password1"],
-                                          'password2': form.cleaned_data["password2"]})
-        new_user = self.create_inactive_user(formuser)
-        signals.user_registered.send(sender=self.__class__,
-                                     user=new_user,
-                                     request=self.request)
-        currentSite = Site.objects.get_current()
-        if currentSite.domain == self.request.get_host():
-            g = Group.objects.get(name='Sitios_Admin')
-            g.user_set.add(new_user)
-            new_user.is_staff = True
-            new_user.save()
-        return new_user
+def CreargruposPermisos():
+    # Estableciendo Grupos y Permisos
+    new_group, created = Group.objects.get_or_create(name='Sitios_Admin')
+    ct = ContentType.objects.get_for_model(WebBuilder)
+    AddWebBuilder = Permission.objects.get(codename='can_add_WebBuilder',
+                                           name='Can add Web Builder',
+                                           content_type=ct)
+    ChangeWebBuilder = Permission.objects.get(codename='can_change_WebBuilder',
+                                              name='Can change Web Builder',
+                                              content_type=ct)
+    DeleteWebBuilder = Permission.objects.get(codename='can_delete_WebBuilder',
+                                              name='Can delete Web Builder',
+                                              content_type=ct)
+    new_group.permissions.add(AddWebBuilder)
+    new_group.permissions.add(ChangeWebBuilder)
+    new_group.permissions.add(DeleteWebBuilder)

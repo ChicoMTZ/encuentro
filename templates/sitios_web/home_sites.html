@@ -45,7 +45,7 @@
 
                         <div class="col-sm-4">
                             <img src="{{ type.icons }}" class="img-responsive pull-left">
-                            <a href="{% url 'Forum_Types' type.slug %}"><h2>{{ type.name }}</h2></a>
+                            <a href="{% url 'activity:Forum_Types' type.slug %}"><h2>{{ type.name }}</h2></a>
                         </div>
 
                     {% endfor %}
@@ -66,7 +66,7 @@
                         <a href="{{ foo.web }}" target="_blank"
                            class="col-sm-4 col-md-3 patrocinador-item text-center">
                             <div class="patrocinador-img">
-                                <img src="{{ foo.logo.url }}" class="img-responsive">
+                                <img src="{{ foo.WebLogo.url }}" class="img-responsive">
                             </div>
                             <span>{{ foo.name }}</span>
                         </a>

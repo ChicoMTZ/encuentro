@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'web1',
     'actividades',
     'bootstrap3',
+    'camisetas',
+    'faq',
+    'becas',
 
 ]
 
@@ -71,6 +74,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'web1.contex_processor.camisetas',
             ],
         },
     },
@@ -134,7 +138,7 @@ USE_TZ = True
 
 
 ACCOUNT_ACTIVATION_DAYS = 10
-LOGIN_REDIRECT_URL = '/accounts/completar_registro/'
+# LOGIN_REDIRECT_URL = '/accounts/completar_registro/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 # python -m smtpd -c DebuggingServer -n localhost:1025
@@ -145,3 +149,4 @@ EMAIL_PORT = "1025"
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+LOGIN_REDIRECT_URL = '/'

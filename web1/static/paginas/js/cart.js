@@ -22,7 +22,7 @@
             datacart['talla'] = $('#id_size').val();
 
             $.ajax({
-                url: '/ajax/agregar_pedido/',
+                url: '/tshirts/agregar_pedido/',
                 type: "POST",
                 data: {'amount': datacart['amount'], 'talla': datacart['talla'], 'id_style': datacart['idshirt']},
                 success: function (response) {
@@ -54,7 +54,7 @@
             event.preventDefault();
             var idpedido=$(event.target).attr('data-idcamiseta');
             $.ajax({
-                url: '/ajax/delete_pedido/',
+                url: '/tshirts/delete_pedido/',
                 type: "POST",
                 data: {'id_pedido': idpedido},
                 success: function (response) {
@@ -73,7 +73,7 @@
             idpedido = $(idpedido[0]).attr('data-idcamiseta');
             amount = $(this).val();
             $.ajax({
-                url: '/ajax/editar_pedido/',
+                url: '/tshirts/editar_pedido/',
                 type: "POST",
                 data: {'id_pedido': idpedido, 'amount': amount},
                 success: function (response) {
