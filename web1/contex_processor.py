@@ -6,6 +6,7 @@ from camisetas.models import Tshirt
 def url(request):
 
     value = {'url': request.path}
+    print request.path
     return value
 
 

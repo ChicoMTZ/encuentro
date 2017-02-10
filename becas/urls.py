@@ -3,5 +3,5 @@ from becas.views import becas
 
 
 urlpatterns = [
-    url(r'^becas/$', becas.as_view(), name='becas'),
+    url(r'^$', becas.as_view(), name='becas'),
 ]

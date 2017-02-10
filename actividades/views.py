@@ -13,6 +13,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.http import Http404
 from django.core.exceptions import ObjectDoesNotExist
 
+
 @method_decorator(login_required, name='dispatch')
 class foro(ListView):
     template_name = 'foro/foro.html'
@@ -24,6 +25,7 @@ class foro(ListView):
 
     def get_queryset(self, *args, **kwargs):
         return Topic.objects.filter(sites=get_current_site(self.request)).order_by('-date_created')
+
 
 @method_decorator(login_required, name='dispatch')
 class foro_topic(ListView):

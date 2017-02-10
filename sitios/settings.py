@@ -75,6 +75,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'web1.contex_processor.camisetas',
+                'web1.contex_processor.patrocinadores',
+                'web1.contex_processor.url',
             ],
         },
     },
