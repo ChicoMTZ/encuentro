@@ -42,7 +42,7 @@
                                 href="{% url 'index' %}">{% trans "Inicio" %}</a></li>
                         <li {% ifequal url "/activity/" %}class="active"{% endifequal %}><a
                                 href="{% url 'activity:Forum' %}">{% trans "Actividades" %}</a></li>
-                        {#                        <li {% ifequal url "/calender/" %}class="active"{% endifequal %}><a#}
+                        {#           <li {% ifequal url "/calender/" %}class="active"{% endifequal %}><a#}
                         {#                                href="{% url 'Agenda' %}">{% trans "Agenda" %}</a></li>#}
                         <li {% ifequal url "/tshirts/" %}class="active"{% endifequal %}><a
                                 href="{% url 'tshirts:tshirt' %}">{% trans "Camisetas" %}</a></li>
@@ -58,19 +58,27 @@
                                     {{ user.username }}{% trans " Perfil" %}
                                     <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
-
-                                    {#                                    <li><a href="{% url 'View_Profile' user.profile.pk %}">{% trans "Ver Perfil" %}</a>#}
+                                    {% if user.profile %}
+                                    <li><a href="{% url 'View_Profile' user.profile.pk %}">{% trans "Ver Perfil" %}</a>
                                     </li>
+                                    <li><a href="{% url 'edit_profile' user.profile.pk %}">{% trans "Editar" %}</a></li>
 
+                                    {% else %}
                                     <li><a href="{% url 'auth_password_change' %}">{% trans "Cambiar Contraseña" %}</a>
+                                    <li><a href="{% url 'New_Profile' %}">{% trans "Crear Perfil" %}</a>
                                     </li>
-                                    {#                                    <li><a href="{% url 'edit_profile' user.profile.pk %}">{% trans "Editar" %}</a></li>#}
+                                    {% endif %}
                                 </ul>
                             </li>
                             <li><a href="{% url 'auth_logout' %}" title="Log Out"><i class="fa fa-power-off"></i></a></li>
                         {% else %}
+
+                            <li {% ifequal url "/accounts/new_user/" %}class="active"{% endifequal %}>
+                            <a href="{% url 'New_User' %}" class="btn btn-lg btn-register">Register</a>
+                            </li>
                             <li {% ifequal url "/accounts/login/" %}class="active"{% endifequal %}><a
                                     href="{% url 'auth_login' %}">{% trans "Entrar " %}</a></li>
+
                         {% endif %}
                     </ul>
                 </div>
