@@ -113,7 +113,7 @@ class Forum_User_Profile(Model):
     institution = CharField(max_length=12, verbose_name=_('Institución'))
     alimentary_restriction = TextField(verbose_name=_('Restrinción Alimentaria'), null=True)
     born_date = DateField(verbose_name=_('Fecha de Nacimiento'))
-    gender = CharField(max_length=1, choices=gender_choice, verbose_name=_('Genero'))
+    gender = CharField(max_length=9, choices=gender_choice, verbose_name=_('Genero'))
     health_consideration = TextField(verbose_name=_('Condiciones de Salud'), null=True)
     identification = CharField(max_length=12, verbose_name=_('Identificación'), null=True)
     nationality = CharField(max_length=12, verbose_name=_('Nacionalidad'))

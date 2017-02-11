@@ -58,14 +58,14 @@
                                     {{ user.username }}{% trans " Perfil" %}
                                     <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
-                                    {% if user.profile %}
-                                    <li><a href="{% url 'View_Profile' user.profile.pk %}">{% trans "Ver Perfil" %}</a>
+                                    {% if user.forum_user_profile %}
+                                    <li><a href="{% url 'activity:View_Profile' user.forum_user_profile.pk %}">{% trans "Ver Perfil" %}</a>
                                     </li>
-                                    <li><a href="{% url 'edit_profile' user.profile.pk %}">{% trans "Editar" %}</a></li>
+                                    <li><a href="{% url 'activity:edit_profile' user.forum_user_profile.pk %}">{% trans "Editar" %}</a></li>
 
                                     {% else %}
                                     <li><a href="{% url 'auth_password_change' %}">{% trans "Cambiar Contraseña" %}</a>
-                                    <li><a href="{% url 'New_Profile' %}">{% trans "Crear Perfil" %}</a>
+                                    <li><a href="{% url 'activity:create_profile' user.pk %}">{% trans "Crear Perfil" %}</a>
                                     </li>
                                     {% endif %}
                                 </ul>

@@ -2,7 +2,6 @@
 from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.generic import *
-from actividades.models import *
 from django.utils.decorators import method_decorator
 from django.utils.text import slugify
 from actividades.forms import *
@@ -96,16 +95,17 @@ class insert_speech(SuccessMessageMixin, CreateView):
         if get_current_site(request).domain == 'localhost:8000':
             raise Http404
         try:
-            self.speech_slug = get_object_or_404(Speech, slug= self.kwargs['slug'])
+            self.speech_slug = get_object_or_404(Speech, slug=self.kwargs['slug'])
         except Http404:
-            self.topic_slug = get_object_or_404(Topic, slug= self.kwargs['slug'])
+            self.topic_slug = get_object_or_404(Topic, slug=self.kwargs['slug'])
         return super(insert_speech, self).get(request, *arg, **kwargs)
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        self.topic_slug = get_object_or_404(Topic, slug= self.kwargs['slug'])
+        self.topic_slug = get_object_or_404(Topic, slug=self.kwargs['slug'])
         form.instance.topic = self.topic_slug
         form.instance.slug = slugify(form.instance.user.username + ' ' + form.instance.title)
+        form.instance.sites = get_current_site(self.request)
         try:
             return super(insert_speech, self).form_valid(form)
         except IntegrityError:
@@ -128,3 +128,31 @@ class subirRecurso(CreateView):
         if get_current_site(request).domain == 'localhost:8000':
             raise Http404
         return super(subirRecurso, self).get(request, *arg, **kwargs)
+
+
+@method_decorator(login_required, name='dispatch')
+class createProfile(SuccessMessageMixin, CreateView):
+    template_name = 'usuarios_foro/create_profile.html'
+    model = Forum_User_Profile
+    form_class = EditProfileForm
+    success_url = '/activity/'
+    success_message = "La perfil fue creado con éxito"
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.sites = get_current_site(self.request)
+        return super(createProfile, self).form_valid(form)
+
+
+@method_decorator(login_required, name='dispatch')
+class ProfileUpdateView(SuccessMessageMixin, UpdateView):
+    form_class = EditProfileForm
+    template_name = 'usuarios_foro/my_edit_profile.html'
+    success_url = "/"
+    model = Forum_User_Profile
+
+
+@method_decorator(login_required, name='dispatch')
+class view_profile(DetailView):
+    template_name = 'usuarios_foro/view_profile.html'
+    model = Forum_User_Profile

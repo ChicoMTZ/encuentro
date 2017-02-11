@@ -56,15 +56,17 @@ class Pagina_web_Admin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         obj.sites = get_current_site(request)
+        obj.user = request.user
         obj.save()
 
 
 class SpeechTypeAdmin(admin.ModelAdmin):
-    exclude = ('slug', 'user')
+    exclude = ('slug', 'user', 'sites')
     list_display = ('name',)
 
     def save_model(self, request, obj, form, change):
         obj.user = request.user
+        obj.sites = get_current_site(request)
         obj.slug = slugify(get_current_site(request).name + ' ' + obj.name)
         obj.save()
 
@@ -98,20 +100,6 @@ class SpeechAdmin(admin.ModelAdmin):
         return qs.filter(user=request.user)
 
 
-class PatrocinadoresAdmin(admin.ModelAdmin):
-    exclude = ('user',)
-
-    def get_queryset(self, request):
-        qs = super(PatrocinadoresAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(user=request.user)
-
-    def save_model(self, request, obj, form, change):
-
-        obj.user = request.user
-        obj.save()
-
 
 admin_site.register(Profile, ProfileAdmin)
 admin_site.register(Speech, SpeechAdmin)
@@ -125,7 +113,7 @@ admin_site.register(Tshirt)
 admin_site.register(Inscription)
 admin_site.register(CategoriaPregunta)
 admin_site.register(Pregunta)
-admin_site.register(Patrocinadores, PatrocinadoresAdmin)
+admin_site.register(Patrocinadores, Pagina_web_Admin)
 
 
 

@@ -28,7 +28,7 @@ class Profile(Model):
 class Patrocinadores(Model):
     name = CharField(max_length=100, verbose_name=_('Nombre'))
     web = URLField(verbose_name=_('Web'))
-    logo = ImageField(verbose_name=_('logo'), upload_to='logos/')
+    logo = ImageField(verbose_name=_('logo'), upload_to='paginas/patrocinadores/')
     user = ForeignKey(User, on_delete=CASCADE, verbose_name=_('Usuario'))
     sites = ForeignKey(Site, on_delete=CASCADE, verbose_name=_('Sitios'))
 
