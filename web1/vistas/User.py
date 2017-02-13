@@ -77,7 +77,7 @@ class createEvent(SuccessMessageMixin, CreateView):
         form.instance.sites = Site.objects.create(domain=slugify(form.instance.event_name) + '.' +
                                                                  get_current_site(self.request).domain,
                                                   name=form.instance.event_name)
-
+        Forum_User_Profile.objects.create(user=form.instance.perfil.user, sites=Site.objects.last())
         return super(createEvent, self).form_valid(form)
 
 
