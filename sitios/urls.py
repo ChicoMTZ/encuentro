@@ -20,9 +20,10 @@ user_patterns = [
     url(r'^accounts/view_profile/(?P<pk>[\w-]+)/$', view_profile.as_view(), name='View_Profile'),
     url(r'^accounts/new_user/$', createUser.as_view(), name='New_User'),
     url(r'^accounts/new_profile/$', createProfile.as_view(), name='New_Profile'),
-    url(r'^accounts/salir/$', salir, name='salir'),
+    url(r'^accounts/logout/$', salir, name='salir'),
     url(r'^accounts/edit_profile/(?P<pk>[0-9]+)$', ProfileUpdateView.as_view(), name='edit_profile'),
     url(r'^accounts/create_event/(?P<pk>[0-9]+)$', createEvent.as_view(), name='Create_Event'),
+    url(r'^accounts/login/$', entrar, name='entrar'),
 
 ]
 

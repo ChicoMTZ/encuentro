@@ -11,6 +11,7 @@ from django.db import IntegrityError
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import Http404
 from django.core.exceptions import ObjectDoesNotExist
+from registration.backends.hmac.views import RegistrationView
 
 
 @method_decorator(login_required, name='dispatch')
@@ -156,3 +157,5 @@ class ProfileUpdateView(SuccessMessageMixin, UpdateView):
 class view_profile(DetailView):
     template_name = 'usuarios_foro/view_profile.html'
     model = Forum_User_Profile
+
+

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, redirect
-from django.contrib.sites.models import Site
 from registration.backends.hmac.views import RegistrationView
 from registration.signals import user_registered
 from django.contrib.messages.views import SuccessMessageMixin
@@ -15,8 +14,9 @@ from django.utils.decorators import method_decorator
 from django.contrib import messages
 from django.contrib.sites.models import Site
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import logout
-from actividades.forms import ProfileForm, EventoForm
+from django.contrib.auth.views import logout, login
+from actividades.forms import ProfileForm, EventoForm, AuthenticationFormWithInactiveUsersOkay
+from actividades.models import Forum_User_Profile
 from registration.forms import *
 from django.utils.text import slugify
 
@@ -43,7 +43,9 @@ class createUser(RegistrationView):
             grupo.user_set.add(new_user)
             new_user.is_staff = True
             new_user.save()
-
+        else:
+            Forum_User_Profile.objects.create(user=new_user, sites=get_current_site(self.request))
+            new_user.save()
         return new_user
 
 
@@ -95,3 +97,7 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
 @login_required
 def salir(request):
     return logout(request, next_page='index')
+
+
+def entrar(request):
+    return login(request, authentication_form=AuthenticationFormWithInactiveUsersOkay)

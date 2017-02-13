@@ -11,7 +11,6 @@ urlpatterns = [
     url(r'^filter/type/(?P<slug>[\w-]+)/$', foro_types.as_view(), name='Forum_Types'),
     url(r'^(?P<speech_id>[0-9]+)/nuevo_recurso$', subirRecurso.as_view(), name='subir_recurso'),
 
-
     url(r'^create_profile/(?P<pk>[0-9]+)$', createProfile.as_view(), name='create_profile'),
     url(r'^edit_profile/(?P<pk>[0-9]+)$', ProfileUpdateView.as_view(), name='edit_profile'),
     url(r'^view_profile/(?P<pk>[\w-]+)/$', view_profile.as_view(), name='View_Profile'),

@@ -85,8 +85,22 @@ class ProfileAdmin(admin.ModelAdmin):
 
 
 class SpeechAdmin(admin.ModelAdmin):
+    exclude = ('sites',)
+
     def get_queryset(self, request):
         qs = super(SpeechAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(sites=get_current_site(request))
+
+    def save_model(self, request, obj, form, change):
+        obj.sites = get_current_site(request)
+        obj.save()
+
+
+class Forum_User_Profile_Admin(admin.ModelAdmin):
+    def get_queryset(self, request):
+        qs = super(Forum_User_Profile_Admin, self).get_queryset(request)
         if request.user.is_superuser:
             return qs
         return qs.filter(sites=get_current_site(request))
@@ -96,7 +110,6 @@ admin_site.register(Profile, ProfileAdmin)
 admin_site.register(Speech, SpeechAdmin)
 admin_site.register(SpeechType, SpeechTypeAdmin)
 admin_site.register(SpeechResource, SpeechAdmin)
-admin_site.register(Forum_User_Profile, SpeechAdmin)
 admin_site.register(WebBuilder, Pagina_web_Admin)
 admin_site.register(Topic, TopicAdmin)
 admin_site.register(TshirtStyle)
@@ -105,3 +118,4 @@ admin_site.register(Inscription)
 admin_site.register(CategoriaPregunta)
 admin_site.register(Pregunta)
 admin_site.register(Patrocinadores, Pagina_web_Admin)
+admin_site.register(Forum_User_Profile, Forum_User_Profile_Admin)

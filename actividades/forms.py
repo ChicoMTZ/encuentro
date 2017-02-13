@@ -1,6 +1,9 @@
 from actividades.models import *
 from web1.models import Profile, Eventos
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.translation import ugettext_lazy as _
 
 
 class InsertTopic(forms.ModelForm):
@@ -43,3 +46,19 @@ class EditProfileForm(forms.ModelForm):
             'out_country_date': forms.TextInput(attrs={'class': 'datepicker'}),
             'born_date': forms.TextInput(attrs={'class': 'datepicker'}),
         }
+
+
+class AuthenticationFormWithInactiveUsersOkay(AuthenticationForm):
+    def confirm_login_allowed(self, user):
+        if get_current_site(self.request).domain != 'localhost:8000':
+            if get_current_site(self.request) != user.forum_user_profile.sites:
+                raise forms.ValidationError(
+                    _("This account is inactive."),
+                    code='inactive',
+                )
+        else:
+            if not user.is_staff:
+                raise forms.ValidationError(
+                    _("This account is inactive."),
+                    code='inactive',
+                )
