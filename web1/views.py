@@ -16,11 +16,13 @@ def inicio(request):
 
 
 def index(request):
-    settings.ALLOWED_HOSTS.append('django.localhost', )
+    settings.ALLOWED_HOSTS.append('pp.localhost', )
     currentSite = Site.objects.get_current()
     if currentSite.domain != request.get_host():
         set_urlconf("sitios.default")
         request.urlconf = "sitios.default"
+        print request.get_host()
+        print currentSite
         return render(request, 'home_sites.html')
     else:
 
