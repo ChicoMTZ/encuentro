@@ -9,6 +9,7 @@ from django.contrib.sites.models import Site
 class CategoriaPregunta(Model):
     emoji_alt = CharField(verbose_name=_('Emoji'), max_length=50)
     nombre = CharField(max_length=100, verbose_name=_('Categoría'))
+    sites = ForeignKey(Site, on_delete=CASCADE, verbose_name=_('Sitios'))
 
     def __str__(self):
         return self.nombre

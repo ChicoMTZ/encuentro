@@ -1,11 +1,6 @@
 from django.contrib import admin
 from django.contrib.admin import site, AdminSite
 from .models import *
-from actividades.models import *
-from becas.models import Inscription
-from camisetas.models import Tshirt, TshirtStyle
-from faq.models import *
-from django.utils.text import slugify
 from django.contrib.sites.shortcuts import get_current_site
 from web1.forms import Form_Admin
 
