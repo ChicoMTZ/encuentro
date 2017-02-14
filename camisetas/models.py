@@ -16,9 +16,9 @@ class TshirtStyle(Model):
 
     description = TextField(verbose_name=_('Descripción'))
     gender = CharField(max_length=1, choices=gender_choice, verbose_name=_('Género'))
-    img1 = ImageField(verbose_name=_('Imagen 1'), upload_to='/paginas/Tshirt/')
-    img2 = ImageField(verbose_name=_('Imagen 2'), upload_to='/paginas/Tshirt/')
-    img3 = ImageField(verbose_name=_('Imagen 3'), upload_to='/paginas/Tshirt/')
+    img1 = ImageField(verbose_name=_('Imagen 1'), upload_to='paginas/Tshirt/')
+    img2 = ImageField(verbose_name=_('Imagen 2'), upload_to='paginas/Tshirt/')
+    img3 = ImageField(verbose_name=_('Imagen 3'), upload_to='paginas/Tshirt/')
 
     name = CharField(max_length=45, verbose_name=_('Nombre'))
     price = DecimalField(verbose_name=_('Precio'), decimal_places=2, max_digits=6)
@@ -35,6 +35,7 @@ class Tshirt(Model):
     last_update = DateField(verbose_name=_('Última Actualización'))
     size = CharField(max_length=15, verbose_name=_('Talla'))
     pagada = BooleanField(default=False)
+    sites = ForeignKey(Site, on_delete=CASCADE, verbose_name=_('Sitios'))
 
     def __str__(self):
         return self.style.name + ' ' + self.style.description

@@ -139,7 +139,6 @@
   margin-top: 70px;
   .title {
     text-transform: uppercase;
-    font-weight: bold;
     text-align: center;
     margin-bottom: 70px;
   }
@@ -157,6 +156,8 @@
 }
 
 .block-patrocinadores {
+  background-color: #eee;
+  padding: 2rem 2rem 5rem 2rem;
   .patrocinadores {
     a {
       display: flex;
@@ -174,7 +175,7 @@
     align-items: center;
     justify-content: center;
     .patrocinador-item {
-      opacity: 0.8;
+      opacity: 0.6;
       transition: .6s;
       color: #fff !important;
       text-decoration: none !important;

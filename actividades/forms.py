@@ -48,7 +48,7 @@ class EditProfileForm(forms.ModelForm):
         }
 
 
-class AuthenticationFormWithInactiveUsersOkay(AuthenticationForm):
+class Form_Login_User(AuthenticationForm):
     def confirm_login_allowed(self, user):
         if get_current_site(self.request).domain != 'localhost:8000':
             if get_current_site(self.request) != user.forum_user_profile.sites:

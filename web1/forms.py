@@ -1,5 +1,6 @@
 from django.core.exceptions import ObjectDoesNotExist
 from web1.models import *
+from actividades.models import *
 from actividades.models import Forum_User_Profile
 from django.contrib.auth.forms import AuthenticationForm
 from django import forms
@@ -25,5 +26,3 @@ class Form_Admin(AuthenticationForm):
                 _("You are not allowed to this domain."),
                 code='inactive',
             )
-
-

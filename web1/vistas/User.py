@@ -15,7 +15,7 @@ from django.contrib import messages
 from django.contrib.sites.models import Site
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import logout, login
-from actividades.forms import ProfileForm, EventoForm, AuthenticationFormWithInactiveUsersOkay
+from actividades.forms import ProfileForm, EventoForm, Form_Login_User
 from actividades.models import Forum_User_Profile
 from registration.forms import *
 from django.utils.text import slugify
@@ -100,4 +100,11 @@ def salir(request):
 
 
 def entrar(request):
-    return login(request, authentication_form=AuthenticationFormWithInactiveUsersOkay)
+
+    return login(request, authentication_form=Form_Login_User)
+
+
+@method_decorator(login_required, name='dispatch')
+class view_profile_admin(DetailView):
+    template_name = 'usuarios_foro/view_profile.html'
+    model = Forum_User_Profile

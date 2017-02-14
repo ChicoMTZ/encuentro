@@ -3,7 +3,6 @@ from actividades.views import *
 
 urlpatterns = [
 
-    # Urls domains
     url(r'^$', foro.as_view(), name='Forum'),
     url(r'^(?P<slug>[\w-]+)/insert_speech/$', insert_speech.as_view(), name='Insert_Speech'),
     url(r'^(?P<slug>[\w-]+)/$', foro_topic.as_view(), name='Forum_Topic'),
@@ -14,4 +13,5 @@ urlpatterns = [
     url(r'^create_profile/(?P<pk>[0-9]+)$', createProfile.as_view(), name='create_profile'),
     url(r'^edit_profile/(?P<pk>[0-9]+)$', ProfileUpdateView.as_view(), name='edit_profile'),
     url(r'^view_profile/(?P<pk>[\w-]+)/$', view_profile.as_view(), name='View_Profile'),
+
 ]

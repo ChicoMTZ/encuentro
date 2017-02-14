@@ -103,7 +103,7 @@
                     <div class="col-sm-4">
                         <div class="card-activity">
                             <h4>Título: <a
-                                    href="{% url 'Forum_Detail' speech.topic.slug speech.slug %}">{{ speech.title }}</a>
+                                    href="{% url 'activity:Forum_Detail' speech.topic.slug speech.slug %}">{{ speech.title }}</a>
                             </h4>
                             <h5>Estado:
                                 {% if speech.published %}
@@ -126,7 +126,7 @@
                     <div class="col-sm-4">
                         <div class="card-activity">
                             <h4>Título: <a
-                                    href="{% url 'Forum_Detail' speech.topic.slug speech.slug %}">{{ speech.title }}</a>
+                                    href="{% url 'activity:Forum_Detail' speech.topic.slug speech.slug %}">{{ speech.title }}</a>
                             </h4>
                             <p class="date-activity"><span class="fa fa-user"></span>{{ speech.user.username }}</p>
                         </div>
@@ -144,7 +144,7 @@
                     <div class="col-sm-4">
                         <div class="card-activity">
                             <h4>Título: <a
-                                    href="{% url 'Forum_Detail' speech.topic.slug speech.slug %}">{{ speech.title }}</a>
+                                    href="{% url 'activity:Forum_Detail' speech.topic.slug speech.slug %}">{{ speech.title }}</a>
                             </h4>
                             <p class="date-activity"><span class="fa fa-user"></span>{{ speech.user.username }}</p>
                         </div>

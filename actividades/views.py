@@ -158,4 +158,7 @@ class view_profile(DetailView):
     template_name = 'usuarios_foro/view_profile.html'
     model = Forum_User_Profile
 
-
+    def get(self, request, *arg, **kwargs):
+        if get_current_site(request).domain == 'localhost:8000':
+            raise Http404
+        return super(view_profile, self).get(request, *arg, **kwargs)

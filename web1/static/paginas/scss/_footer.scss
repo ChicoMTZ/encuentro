@@ -1,8 +1,5 @@
 .footer {
-  padding-top: 7em;
-  &.footer-home {
-    margin-top: -75px;
-  }
+  box-shadow: 0 -1px 3px 0px rgba(0,0,0,0.5),0 -5px 5px 0 rgba(0,0,0,0.1), 0 -3px 5px 0 rgba(0,0,0,0.1);
   .footer-container {
     background: #030513;
     color: #fff;
