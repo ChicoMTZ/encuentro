@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e39eac25-525b-472b-b8f3-32f12aadf98e" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/requeriments.txt" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/python" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="sitios.iws" />
@@ -583,7 +585,13 @@
       <option name="project" value="LOCAL" />
       <updated>1487334287307</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="requeriments">
+      <created>1487335037820</created>
+      <option name="number" value="00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1487335037820</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -619,7 +627,8 @@
     <MESSAGE value="Nuevo" />
     <MESSAGE value="Merge branch 'master' of https://github.com/ChicoMTZ/encuentro&#10;&#10;# Conflicts:&#10;#&#9;sitios/mide.py&#10;#&#9;sitios/settings.py&#10;#&#9;sitios/urls.py&#10;#&#9;web1/admin.py&#10;#&#9;web1/models.py&#10;#&#9;web1/views.py&#10;" />
     <MESSAGE value="arreglado" />
-    <option name="LAST_COMMIT_MESSAGE" value="arreglado" />
+    <MESSAGE value="requeriments" />
+    <option name="LAST_COMMIT_MESSAGE" value="requeriments" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
