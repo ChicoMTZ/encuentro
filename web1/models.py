@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
 from django.db import models
@@ -33,3 +34,14 @@ class Profile(Model):
     # invitation_file = BooleanField(verbose_name=_('¿Email de Invitación?'), default=False)
     # diploma = BooleanField(verbose_name=_('¿Email de Diploma?'), default=False)
     #
+=======
+from django.db import models
+from django.contrib.sites.models import Site
+from django.contrib.auth.models import User
+
+
+class Article(models.Model):
+    headline = models.CharField(max_length=200)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    sites = models.ManyToManyField(Site)
+>>>>>>> bd03b5de37d4106749cf9ce989d13228f5e5bcf6
