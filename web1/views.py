@@ -1,37 +1,27 @@
 from django.shortcuts import render
 from django.contrib.sites.models import Site
-# Create your views here.
 from registration.backends.hmac.views import RegistrationView
 from django.core.urlresolvers import set_urlconf, get_urlconf
 from registration.forms import *
 from registration import signals
-from web1.forms import ProfileForm
-from web1.models import Profile
 from django.conf import settings
-
-
-def inicio(request):
-
-    pass
+from django.contrib.auth.models import Group
 
 
 def index(request):
-    settings.ALLOWED_HOSTS.append('pp.localhost', )
+
+
     currentSite = Site.objects.get_current()
+
+
     if currentSite.domain != request.get_host():
+        settings.ALLOWED_HOSTS.append('pp.localhost', )
         set_urlconf("sitios.default")
         request.urlconf = "sitios.default"
-        print request.get_host()
-        print currentSite
-        return render(request, 'home_sites.html')
+        print(get_urlconf())
+        return render(request, 'sitios_web/home_sites.html')
     else:
-
-        return render(request, 'home.html')
-
-
-def crear(request):
-    print request.get_host()
-    return render(request, 'unico.html')
+        return render(request, 'plataforma/home.html')
 
 
 class createProfile(RegistrationView):
@@ -45,5 +35,9 @@ class createProfile(RegistrationView):
         signals.user_registered.send(sender=self.__class__,
                                      user=new_user,
                                      request=self.request)
+        currentSite = Site.objects.get_current()
+        if currentSite.domain == self.request.get_host():
+            g = Group.objects.get(name='Sitios_Admin')
+            g.user_set.add(new_user)
 
         return new_user
