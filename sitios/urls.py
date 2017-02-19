@@ -27,6 +27,6 @@ urlpatterns = domains_patterns + extra_patterns + [
 
     url(r'^admin/', admin.site.urls),
     url(r'^$', index, name='index'),
-    url(r'^accounts/new_profile/$', createProfile.as_view(), name='New_Profile'),
+    url(r'^accounts/new_user/$', createUser.as_view(), name='New_User'),
 
 ]

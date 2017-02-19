@@ -19,7 +19,7 @@ def index(request):
         return render(request, 'plataforma/home.html')
 
 
-class createProfile(RegistrationView):
+class createUser(RegistrationView):
 
     template_name = 'usuarios/create_profile.html'
 
@@ -34,5 +34,6 @@ class createProfile(RegistrationView):
         if currentSite.domain == self.request.get_host():
             g = Group.objects.get(name='Sitios_Admin')
             g.user_set.add(new_user)
-
+            new_user.is_staff = True
+            new_user.save()
         return new_user
