@@ -1,4 +1,3 @@
-{% extends "base.html" %}
 {% load i18n %}
 {% load bootstrap3 %}
 {% block content %}
@@ -32,7 +31,7 @@
                 </form>
                 <div class="login-extras">
                     <p> <a href="{% url 'auth_password_reset' %}">{% trans "Cambiar contraseña" %}</a></p>
-                    <p> <a href="{% url 'New_Profile' %}">{% trans "Registrarse" %}</a></p>
+                    <p> <a href="{% url 'New_User' %}">{% trans "Registrarse" %}</a></p>
                 </div>
             </div>
         </div>

@@ -16,6 +16,7 @@ from django.contrib.sites.models import Site
 from django.http import Http404
 
 
+@method_decorator(login_required, name='dispatch')
 class foro(ListView):
 
     template_name = 'sitios_web/foro/foro.html'
@@ -38,11 +39,11 @@ class foro_topic(ListView):
 
     def get_queryset(self, *args, **kwargs):
         self.editor = self.kwargs['slug']
-        return Speech.objects.filter(topic__slug = self.editor).order_by('-date_created')
+        return Speech.objects.filter(topic__slug=self.editor, topic__sites=self.request.get_host()).order_by('-date_created')
 
     def get_context_data(self, **kwargs):
         context = super(foro_topic, self).get_context_data(**kwargs)
-        context['topic'] = Topic.objects.get(slug=self.editor)
+        context['topic'] = Topic.objects.get(slug=self.editor, sites=self.request.get_host())
 
         return context
 
@@ -56,7 +57,7 @@ class foro_detail(ListView):
     def get_queryset(self, *args, **kwargs):
         self.editor = self.kwargs['slug']
         self.detalles = self.kwargs['slug1']
-        return Speech.objects.get(topic__slug=self.editor, slug=self.detalles)
+        return Speech.objects.get(topic__slug=self.editor, slug=self.detalles, topic__sites=self.request.get_host())
 
 
 @method_decorator(login_required, name='dispatch')
@@ -67,7 +68,7 @@ class foro_types(ListView):
 
     def get_queryset(self, *args, **kwargs):
         self.types = self.kwargs['slug']
-        return Speech.objects.filter(speech_type__slug= self.types)
+        return Speech.objects.filter(speech_type__slug= self.types, topic__sites=self.request.get_host())
 
 
 @method_decorator(login_required, name='dispatch')
@@ -97,6 +98,7 @@ class insert_speech(SuccessMessageMixin, CreateView):
             return redirect('Insert_Speech', slug=self.kwargs['slug'])
 
 
+@method_decorator(login_required, name='dispatch')
 class subirRecurso(CreateView):
     model = SpeechResource
     fields = ('recurso', )

@@ -34,7 +34,7 @@ class SpeechType(Model):
 class Topic(Model):
 
     user = ForeignKey(User, on_delete=CASCADE, related_name='topic_user', verbose_name=_('Usuario'))
-    name = CharField(max_length=45, verbose_name=_('Nombre'),unique=True)
+    name = CharField(max_length=45, verbose_name=_('Nombre'))
     description = TextField(verbose_name=_('Descripción'))
     slug = SlugField(unique=True, help_text='Generador de url, se recomienda no modificar')
     date_created = DateTimeField(verbose_name=_('Fecha de Creado'), auto_now_add=True)

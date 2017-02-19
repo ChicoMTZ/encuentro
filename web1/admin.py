@@ -42,6 +42,11 @@ class SpeechTypeAdmin(admin.ModelAdmin):
         obj.slug = slugify(Site.objects.get_current().name + ' ' + obj.name)
         obj.save()
 
+    def get_queryset(self, request):
+        qs = super(SpeechTypeAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(user=request.user)
 
 
 @admin.register(Speech)
