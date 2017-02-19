@@ -25,7 +25,7 @@ SECRET_KEY = 'olzwiu!r9q2&&sf_dt%zl8)b3n^r_t-h+77*_ojtlpei%sihdw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost',]
+ALLOWED_HOSTS = ['*',]
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'web1',
+    'actividades',
     'bootstrap3',
 
 ]
@@ -131,6 +132,8 @@ USE_TZ = True
 ACCOUNT_ACTIVATION_DAYS = 10
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
-
+DEFAULT_FROM_EMAIL = 'chicomtz.sr@gmail.com'
+EMAIL_HOST = "localhost"
+EMAIL_PORT = "1025"
 STATIC_URL = '/static/'
-SITE_ID = 1
+SITE_ID = 4

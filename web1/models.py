@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import *
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.sites.models import Site
 
 
 class Profile(Model):
@@ -10,6 +11,7 @@ class Profile(Model):
     name = CharField(max_length=255, verbose_name=_('Nombre'))
     last_name = CharField(max_length=255, verbose_name=_('Apellido'))
     event_url = CharField(max_length=255, verbose_name=_('Nombre Evento'))
+    sites = models.ManyToManyField(Site)
     # institution = CharField(max_length=12, verbose_name=_('Institución'))
     # alimentary_restriction = TextField(verbose_name=_('Restrinción Alimentaria'), null=True)
     # born_date = DateField(verbose_name=_('Fecha de Nacimiento'))

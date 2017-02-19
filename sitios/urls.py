@@ -1,31 +1,31 @@
-"""sitios URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.10/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.conf.urls import url, include
-    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
-"""
 from django.conf.urls import url, include
 from django.contrib import admin
 from web1.views import *
+from actividades.views import *
+
 
 extra_patterns = [
 
     url(r'^accounts/', include('registration.backends.hmac.urls')),
 
     ]
-urlpatterns = extra_patterns + [
+
+
+domains_patterns = [
+
+    # Urls domains
+    url(r'^activity/$', foro.as_view(), name='Forum'),
+    url(r'^activity/(?P<slug>[\w-]+)/insert_speech/$', insert_speech.as_view(), name='Insert_Speech'),
+    url(r'^activity/(?P<slug>[\w-]+)/$', foro_topic.as_view(), name='Forum_Topic'),
+    url(r'^activity/(?P<slug>[\w-]+)/(?P<slug1>[\w-]+)/$', foro_detail.as_view(), name='Forum_Detail'),
+    url(r'^activity/filter/type/(?P<slug>[\w-]+)/$', foro_types.as_view(), name='Forum_Types'),
+    url(r'^activity/(?P<speech_id>[0-9]+)/nuevo_recurso$', subirRecurso.as_view(), name='subir_recurso'),
+
+]
+
+urlpatterns = domains_patterns + extra_patterns + [
 
     url(r'^admin/', admin.site.urls),
-    url(r'^sitios/', inicio),
     url(r'^$', index, name='index'),
     url(r'^accounts/new_profile/$', createProfile.as_view(), name='New_Profile'),
 
