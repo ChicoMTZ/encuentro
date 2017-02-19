@@ -17,7 +17,7 @@ from django.http import Http404
 
 
 class foro(ListView):
-    queryset = Topic.objects.all().order_by('-date_created')
+
     template_name = 'sitios_web/foro/foro.html'
 
     def get(self, request, *arg, **kwargs):
@@ -25,6 +25,9 @@ class foro(ListView):
         if aa.domain == request.get_host():
             raise Http404
         return super(foro, self).get(request, *arg, **kwargs)
+
+    def get_queryset(self, *args, **kwargs):
+        return Topic.objects.filter(sites=self.request.get_host()).order_by('-date_created')
 
 
 @method_decorator(login_required, name='dispatch')
@@ -53,7 +56,7 @@ class foro_detail(ListView):
     def get_queryset(self, *args, **kwargs):
         self.editor = self.kwargs['slug']
         self.detalles = self.kwargs['slug1']
-        return Speech.objects.get(topic__slug= self.editor, slug=self.detalles)
+        return Speech.objects.get(topic__slug=self.editor, slug=self.detalles)
 
 
 @method_decorator(login_required, name='dispatch')
@@ -101,4 +104,5 @@ class subirRecurso(CreateView):
 
     def form_valid(self, form):
         form.instance.speech = get_object_or_404(Speech, pk=self.kwargs['speech_id'])
+        form.instance.user = self.request.user
         return super(subirRecurso, self).form_valid(form)

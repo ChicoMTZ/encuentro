@@ -3,11 +3,12 @@ from .models import Profile
 from actividades.models import *
 from django.utils.text import slugify
 from django.contrib.sites.models import Site
+from django.contrib.sites.shortcuts import get_current_site
 
 
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
-    exclude = ('user', 'slug')
+    exclude = ('user', 'slug', 'sites')
 
     def get_queryset(self, request):
         qs = super(TopicAdmin, self).get_queryset(request)
@@ -18,6 +19,7 @@ class TopicAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.user = request.user
         obj.slug = slugify(Site.objects.get_current().name + ' ' + obj.name)
+        obj.sites = request.get_host()
         obj.save()
 
 
@@ -32,11 +34,14 @@ class ProfileAdmin(admin.ModelAdmin):
 
 @admin.register(SpeechType)
 class SpeechTypeAdmin(admin.ModelAdmin):
-    def get_queryset(self, request):
-        qs = super(SpeechTypeAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(user=request.user)
+    exclude = ('slug', 'user')
+    list_display = ('name',)
+
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        obj.slug = slugify(Site.objects.get_current().name + ' ' + obj.name)
+        obj.save()
+
 
 
 @admin.register(Speech)
@@ -64,3 +69,4 @@ class Forum_User_ProfileAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             return qs
         return qs.filter(user=request.user)
+

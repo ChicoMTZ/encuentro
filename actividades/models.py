@@ -7,6 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import now
 from django.conf import settings
 from django.utils.text import slugify
+from django.contrib.sites.models import Site
 
 
 class SpeechType(Model):
@@ -37,6 +38,7 @@ class Topic(Model):
     description = TextField(verbose_name=_('Descripción'))
     slug = SlugField(unique=True, help_text='Generador de url, se recomienda no modificar')
     date_created = DateTimeField(verbose_name=_('Fecha de Creado'), auto_now_add=True)
+    sites = CharField(max_length=255)
 
     class Meta:
         ordering = ["-date_created"]
