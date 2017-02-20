@@ -4,11 +4,13 @@ from web1.views import *
 from actividades.views import *
 
 
+
 extra_patterns = [
 
     url(r'^accounts/', include('registration.backends.hmac.urls')),
 
     ]
+
 
 
 domains_patterns = [

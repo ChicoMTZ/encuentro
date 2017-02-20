@@ -18,7 +18,6 @@ from django.http import Http404
 
 @method_decorator(login_required, name='dispatch')
 class foro(ListView):
-
     template_name = 'sitios_web/foro/foro.html'
 
     def get(self, request, *arg, **kwargs):
@@ -44,7 +43,11 @@ class foro_topic(ListView):
     def get_context_data(self, **kwargs):
         context = super(foro_topic, self).get_context_data(**kwargs)
         context['topic'] = Topic.objects.get(slug=self.editor, sites=self.request.get_host())
+        return Speech.objects.filter(topic__slug = self.editor).order_by('-date_created')
 
+    def get_context_data(self, **kwargs):
+        context = super(foro_topic, self).get_context_data(**kwargs)
+        context['topic'] = Topic.objects.get(slug=self.editor)
         return context
 
 
@@ -82,6 +85,7 @@ class insert_speech(SuccessMessageMixin, CreateView):
     def get(self, request, *arg, **kwargs):
         try:
             self.speech_slug = get_object_or_404(Speech, slug= self.kwargs['slug'])
+
         except Http404:
             self.topic_slug = get_object_or_404(Topic, slug= self.kwargs['slug'])
         return super(insert_speech, self).get(request, *arg, **kwargs)
@@ -105,6 +109,7 @@ class subirRecurso(CreateView):
     template_name = 'sitios_web/foro/subir_recurso.html'
 
     def form_valid(self, form):
+
         form.instance.speech = get_object_or_404(Speech, pk=self.kwargs['speech_id'])
         form.instance.user = self.request.user
         return super(subirRecurso, self).form_valid(form)

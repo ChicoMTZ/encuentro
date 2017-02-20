@@ -97,6 +97,7 @@ class SpeechResource(Model):
         return '/activity/' + self.speech.topic.slug + "/" + self.speech.slug
 
 
+
 class Forum_User_Profile(Model):
 
     gender_choice = (
@@ -129,5 +130,3 @@ class Forum_User_Profile(Model):
     letter = TextField(verbose_name=_('Carta Migratoria'), null=True)
     invitation_file = BooleanField(verbose_name=_('¿Email de Invitación?'), default=False)
     diploma = BooleanField(verbose_name=_('¿Email de Diploma?'), default=False)
-
-

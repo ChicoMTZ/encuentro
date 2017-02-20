@@ -9,7 +9,11 @@
 {{ user }}
 
         {% if not user.is_authenticated %}
+<<<<<<< HEAD
             <a href="{% url 'New_User' %}" class="btn btn-lg btn-register">Register</a>
+=======
+            <a href="{% url 'New_Profile' %}" class="btn btn-lg btn-register">Register</a>
+>>>>>>> d5b3c3312b11ffcf9319ae5ff66d4f8fd34d4495
         {% endif %}
 </body>
 </html>
