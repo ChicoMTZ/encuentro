@@ -134,6 +134,9 @@ ACCOUNT_ACTIVATION_DAYS = 10
 LOGIN_REDIRECT_URL = '/accounts/completar_registro/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
+# python -m smtpd -c DebuggingServer -n localhost:1025
+
+
 DEFAULT_FROM_EMAIL = 'chicomtz.sr@gmail.com'
 EMAIL_HOST = "localhost"
 EMAIL_PORT = "1025"

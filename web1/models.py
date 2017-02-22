@@ -24,3 +24,12 @@ class Patrocinadores(Model):
     name = CharField(max_length=100, verbose_name=_('Nombre'))
     web = URLField(verbose_name=_('Web'))
     logo = ImageField(verbose_name=_('logo'), upload_to='logos/')
+
+
+class enlaces(Model):
+    redes = (
+        ('Facebook', 'Facebook'),
+        ('Twitter', 'Twitter')
+    )
+    red_social = CharField(max_length=8, verbose_name=_('Red social'), choices=redes)
+    direccion = URLField(verbose_name=_('Direccion'))

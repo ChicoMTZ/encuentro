@@ -14,6 +14,7 @@ from .forms import ProfileForm
 
 
 def index(request):
+
     currentSite = Site.objects.get_current()
 
     if currentSite.domain != request.get_host():

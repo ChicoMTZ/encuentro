@@ -1,10 +1,12 @@
 from django.contrib import admin
-from .models import Profile
+from .models import *
 from actividades.models import *
 from django.utils.text import slugify
 from django.contrib.sites.models import Site
 from django.contrib.sites.shortcuts import get_current_site
-
+admin.site.register(enlaces)
+admin.site.register(pagina_web)
+admin.site.register(Patrocinadores)
 
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
