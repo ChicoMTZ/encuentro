@@ -17,3 +17,10 @@ class Profile(Model):
 
 class pagina_web(Model):
     logo = ImageField(verbose_name=_('logo'), upload_to='paginas/logos/')
+    banner = ImageField(verbose_name=_('banner'), upload_to='paginas/banner/')
+
+
+class Patrocinadores(Model):
+    name = CharField(max_length=100, verbose_name=_('Nombre'))
+    web = URLField(verbose_name=_('Web'))
+    logo = ImageField(verbose_name=_('logo'), upload_to='logos/')
