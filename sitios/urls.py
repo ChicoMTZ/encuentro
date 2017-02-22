@@ -3,6 +3,8 @@ from django.contrib import admin
 from web1.views import *
 from web1.vistas.User import *
 from actividades.views import *
+from django.conf.urls.static import static
+
 
 
 extra_patterns = [
@@ -38,5 +40,5 @@ urlpatterns = domains_patterns + user_patterns + extra_patterns + [
     url(r'^admin/', admin.site.urls),
     url(r'^$', index, name='index'),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
