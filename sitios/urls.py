@@ -29,6 +29,7 @@ user_patterns = [
     url(r'^accounts/new_user/$', createUser.as_view(), name='New_User'),
     url(r'^accounts/completar_registro/(?P<next>[\S]*)$', completarRegistro, name='completar_registro'),
     url(r'^accounts/salir$', salir, name='salir'),
+    url(r'^accounts/edit_profile/(?P<pk>[0-9]+)$', ProfileUpdateView.as_view(), name='edit_profile'),
 
 ]
 
