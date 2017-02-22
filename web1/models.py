@@ -13,3 +13,7 @@ class Profile(Model):
 
     def __str__(self):
         return self.user.username
+
+
+class pagina_web(Model):
+    logo = ImageField(verbose_name=_('logo'), upload_to='paginas/logos/')
