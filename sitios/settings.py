@@ -27,10 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*',]
 
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,10 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-<<<<<<< HEAD
     'PIL',
-=======
->>>>>>> origin/master
     'web1',
     'actividades',
     'bootstrap3',
@@ -54,22 +47,15 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-<<<<<<< HEAD
-=======
-
     'django.middleware.security.SecurityMiddleware',
->>>>>>> origin/master
     'sitios.mide.MultipleProxyMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-<<<<<<< HEAD
-=======
 
 
->>>>>>> origin/master
 ]
 
 ROOT_URLCONF = 'sitios.urls'
@@ -77,12 +63,8 @@ ROOT_URLCONF = 'sitios.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-<<<<<<< HEAD
-        'DIRS': [os.path.join('templates')],
-=======
 
-        'DIRS': [os.path.join('templates'), 'sitios_templates'],
->>>>>>> origin/master
+        'DIRS': [os.path.join('templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -151,7 +133,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-<<<<<<< HEAD
+
 ACCOUNT_ACTIVATION_DAYS = 10
 LOGIN_REDIRECT_URL = '/accounts/completar_registro/'
 # Static files (CSS, JavaScript, Images)
@@ -164,21 +146,3 @@ EMAIL_PORT = "1025"
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-=======
-
-ACCOUNT_ACTIVATION_DAYS = 10
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.10/howto/static-files/
-DEFAULT_FROM_EMAIL = 'chicomtz.sr@gmail.com'
-EMAIL_HOST = "localhost"
-EMAIL_PORT = "1025"
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.10/howto/static-files/
-
-
-
-STATIC_URL = '/static/'
-SITE_ID = 4
->>>>>>> origin/master

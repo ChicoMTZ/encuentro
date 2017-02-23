@@ -17,8 +17,3 @@ class MultipleProxyMiddleware(MiddlewareMixin):
             if field in request.META:
                 if ',' in request.META[field]:
                     parts = request.META[field].split(',')
-<<<<<<< HEAD
-                    request.META[field] = parts[-1].strip()
-=======
-                    request.META[field] = parts[-1].strip()
->>>>>>> origin/master

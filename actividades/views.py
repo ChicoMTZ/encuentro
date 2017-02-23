@@ -18,29 +18,14 @@ from django.http import Http404
 
 @method_decorator(login_required, name='dispatch')
 class foro(ListView):
-<<<<<<< HEAD
-
     template_name = 'sitios_web/foro/foro.html'
-
     def get(self, request, *arg, **kwargs):
         if get_current_site(request).domain == 'localhost:8000':
-=======
-    template_name = 'sitios_web/foro/foro.html'
-
-    def get(self, request, *arg, **kwargs):
-        aa = Site.objects.get_current()
-        if aa.domain == request.get_host():
->>>>>>> origin/master
             raise Http404
         return super(foro, self).get(request, *arg, **kwargs)
 
     def get_queryset(self, *args, **kwargs):
-<<<<<<< HEAD
         return Topic.objects.filter(sites=get_current_site(self.request)).order_by('-date_created')
-=======
-        return Topic.objects.filter(sites=self.request.get_host()).order_by('-date_created')
->>>>>>> origin/master
-
 
 @method_decorator(login_required, name='dispatch')
 class foro_topic(ListView):
@@ -50,21 +35,17 @@ class foro_topic(ListView):
 
     def get_queryset(self, *args, **kwargs):
         self.editor = self.kwargs['slug']
-        return Speech.objects.filter(topic__slug=self.editor, topic__sites=self.request.get_host()).order_by('-date_created')
+        return Speech.objects.filter(topic__slug=self.editor, topic__sites=get_current_site(self.request)).order_by('-date_created')
 
     def get_context_data(self, **kwargs):
         context = super(foro_topic, self).get_context_data(**kwargs)
-        context['topic'] = Topic.objects.get(slug=self.editor, sites=self.request.get_host())
-<<<<<<< HEAD
-
-=======
-        return Speech.objects.filter(topic__slug = self.editor).order_by('-date_created')
-
-    def get_context_data(self, **kwargs):
-        context = super(foro_topic, self).get_context_data(**kwargs)
-        context['topic'] = Topic.objects.get(slug=self.editor)
->>>>>>> origin/master
+        context['topic'] = Topic.objects.get(slug=self.editor, sites=get_current_site(self.request))
         return context
+
+    def get(self, request, *arg, **kwargs):
+        if get_current_site(request).domain == 'localhost:8000':
+            raise Http404
+        return super(foro_topic, self).get(request, *arg, **kwargs)
 
 
 @method_decorator(login_required, name='dispatch')
@@ -76,8 +57,12 @@ class foro_detail(ListView):
     def get_queryset(self, *args, **kwargs):
         self.editor = self.kwargs['slug']
         self.detalles = self.kwargs['slug1']
-        return Speech.objects.get(topic__slug=self.editor, slug=self.detalles, topic__sites=self.request.get_host())
+        return Speech.objects.get(topic__slug=self.editor, slug=self.detalles, topic__sites=get_current_site(self.request))
 
+    def get(self, request, *arg, **kwargs):
+        if get_current_site(request).domain == 'localhost:8000':
+            raise Http404
+        return super(foro_detail, self).get(request, *arg, **kwargs)
 
 @method_decorator(login_required, name='dispatch')
 class foro_types(ListView):
@@ -87,8 +72,12 @@ class foro_types(ListView):
 
     def get_queryset(self, *args, **kwargs):
         self.types = self.kwargs['slug']
-        return Speech.objects.filter(speech_type__slug= self.types, topic__sites=self.request.get_host())
+        return Speech.objects.filter(speech_type__slug= self.types, topic__sites=get_current_site(self.request))
 
+    def get(self, request, *arg, **kwargs):
+        if get_current_site(request).domain == 'localhost:8000':
+            raise Http404
+        return super(foro_types, self).get(request, *arg, **kwargs)
 
 @method_decorator(login_required, name='dispatch')
 class insert_speech(SuccessMessageMixin, CreateView):
@@ -99,12 +88,11 @@ class insert_speech(SuccessMessageMixin, CreateView):
     success_message = "La actividad fue creada. Necesita la aprobación de un administrador"
 
     def get(self, request, *arg, **kwargs):
+        if get_current_site(request).domain == 'localhost:8000':
+            raise Http404
         try:
             self.speech_slug = get_object_or_404(Speech, slug= self.kwargs['slug'])
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/master
         except Http404:
             self.topic_slug = get_object_or_404(Topic, slug= self.kwargs['slug'])
         return super(insert_speech, self).get(request, *arg, **kwargs)
@@ -128,10 +116,11 @@ class subirRecurso(CreateView):
     template_name = 'sitios_web/foro/subir_recurso.html'
 
     def form_valid(self, form):
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
         form.instance.speech = get_object_or_404(Speech, pk=self.kwargs['speech_id'])
         form.instance.user = self.request.user
         return super(subirRecurso, self).form_valid(form)
+
+    def get(self, request, *arg, **kwargs):
+        if get_current_site(request).domain == 'localhost:8000':
+            raise Http404
+        return super(subirRecurso, self).get(request, *arg, **kwargs)
