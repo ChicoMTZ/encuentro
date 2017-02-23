@@ -17,9 +17,9 @@ from django.utils.decorators import method_decorator
 from actividades.forms import *
 from django.contrib import messages
 from django.contrib.sites.models import Site
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import logout
-
+from web1.forms import ProfileForm
 
 @method_decorator(login_required, name='dispatch')
 class view_profile(DetailView):
@@ -48,23 +48,15 @@ class createUser(RegistrationView):
         return new_user
 
 
-# class ProfileUpdateView(LoginRequiredMixin, UpdateView):
-#
-#     form_class = EditProfileForm
-#     template_name = 'usuarios/my_edit_profile.html'
-#     success_url = "/"
-#     model = Profile
+class ProfileUpdateView(LoginRequiredMixin, UpdateView):
+    form_class = ProfileForm
+    template_name = 'usuarios/my_edit_profile.html'
+    success_url = "/"
+    model = Profile
 
 
 def completarRegistro(request, next):
-    perfil = request.user.profile
-    if perfil.alimentary_restriction and perfil.entry_country and perfil.entry_port and perfil.entry_country_date and perfil.health_consideration and perfil.identification and perfil.letter and perfil.out_country and perfil.out_country_date and perfil.out_port:
-        if next == '':
-            return redirect('index')
-        return redirect(next)
-    else:
-        messages.add_message(request, messages.WARNING, 'Por favor complete su registro')
-        return redirect('edit_profile', perfil.pk)
+    return redirect('edit_profile', request.user.profile.pk)
 
 
 def salir(request):

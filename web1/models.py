@@ -10,6 +10,7 @@ class Profile(Model):
 
     user = OneToOneField(User, on_delete=CASCADE, verbose_name=_('Usuario'))
     event_url = CharField(max_length=255, verbose_name=_('Nombre Evento'))
+    email = EmailField()
 
     def __str__(self):
         return self.user.username
@@ -18,12 +19,24 @@ class Profile(Model):
 class pagina_web(Model):
     logo = ImageField(verbose_name=_('logo'), upload_to='paginas/logos/')
     banner = ImageField(verbose_name=_('banner'), upload_to='paginas/banner/')
+    user = ForeignKey(User, on_delete=CASCADE, verbose_name=_('Usuario'))
+    slogan = CharField(max_length=100, verbose_name=_('Slogan'))
 
 
 class Patrocinadores(Model):
     name = CharField(max_length=100, verbose_name=_('Nombre'))
     web = URLField(verbose_name=_('Web'))
     logo = ImageField(verbose_name=_('logo'), upload_to='logos/')
+    user = ForeignKey(User, on_delete=CASCADE, verbose_name=_('Usuario'))
+
+
+class centro(Model):
+    date_start = DateField(verbose_name= _('Fecha inicio'), blank=True)
+    date_end = DateField(verbose_name= _('Fecha Final'), blank=True)
+    title = CharField(max_length=100, verbose_name=_('Titulo'), blank=True)
+    country = CharField(max_length=100, verbose_name=_('Pais'), blank=True)
+    places = CharField(max_length=100, verbose_name=_('Lugar'), blank=True)
+    user = ForeignKey(User, on_delete=CASCADE, verbose_name=_('Usuario'))
 
 
 class enlaces(Model):
@@ -33,3 +46,4 @@ class enlaces(Model):
     )
     red_social = CharField(max_length=8, verbose_name=_('Red social'), choices=redes)
     direccion = URLField(verbose_name=_('Direccion'))
+    user = ForeignKey(User, on_delete=CASCADE, verbose_name=_('Usuario'))

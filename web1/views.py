@@ -19,7 +19,7 @@ def index(request):
 
     if currentSite.domain != request.get_host():
 
-        return render(request, 'sitios_web/home_sites.html')
+        return render(request, 'sitios_web/home_sites.html', {'logo': pagina_web.objects.filter(user=request.user)})
     else:
         return render(request, 'plataforma/home.html')
 

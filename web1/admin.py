@@ -4,9 +4,7 @@ from actividades.models import *
 from django.utils.text import slugify
 from django.contrib.sites.models import Site
 from django.contrib.sites.shortcuts import get_current_site
-admin.site.register(enlaces)
-admin.site.register(pagina_web)
-admin.site.register(Patrocinadores)
+
 
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
@@ -22,6 +20,66 @@ class TopicAdmin(admin.ModelAdmin):
         obj.user = request.user
         obj.slug = slugify(Site.objects.get_current().name + ' ' + obj.name)
         obj.sites = request.get_host()
+        obj.save()
+
+
+@admin.register(pagina_web)
+class Pagina_web_Admin(admin.ModelAdmin):
+    exclude = ('user',)
+
+    def get_queryset(self, request):
+        qs = super(Pagina_web_Admin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(user=request.user)
+
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        obj.save()
+
+
+@admin.register(centro)
+class Centro_Admin(admin.ModelAdmin):
+    exclude = ('user',)
+
+    def get_queryset(self, request):
+        qs = super(Centro_Admin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(user=request.user)
+
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        obj.save()
+
+
+@admin.register(Patrocinadores)
+class Patrocinadores_Admin(admin.ModelAdmin):
+    exclude = ('user',)
+
+    def get_queryset(self, request):
+        qs = super(Patrocinadores_Admin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(user=request.user)
+
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        obj.save()
+
+
+@admin.register(enlaces)
+class Enlaces_Admin(admin.ModelAdmin):
+    exclude = ('user',)
+
+    def get_queryset(self, request):
+        qs = super(Enlaces_Admin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(user=request.user)
+
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
         obj.save()
 
 
