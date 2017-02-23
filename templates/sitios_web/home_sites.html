@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Este sera el home del 1er tema de los sitios dinamicos</h1>
+<a href="{% url 'Forum' %}">Actividades</a>
+
+{{ user }}
+
+  {% if not user.is_authenticated %}
+            <a href="{% url 'New_User' %}" class="btn btn-lg btn-register">Register</a>
+  {% endif %}
+
+</body>
+</html>
