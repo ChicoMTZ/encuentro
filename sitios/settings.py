@@ -86,7 +86,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'Sitios',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'root',
         'HOST': '127.0.0.1',
         'PORT': '3306',
 
@@ -136,9 +136,9 @@ LOGIN_REDIRECT_URL = '/accounts/completar_registro/'
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 # python -m smtpd -c DebuggingServer -n localhost:1025
 
-
 DEFAULT_FROM_EMAIL = 'chicomtz.sr@gmail.com'
 EMAIL_HOST = "localhost"
 EMAIL_PORT = "1025"
 STATIC_URL = '/static/'
-SITE_ID = 1
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

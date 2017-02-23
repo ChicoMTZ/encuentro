@@ -38,7 +38,7 @@ class Topic(Model):
     description = TextField(verbose_name=_('Descripción'))
     slug = SlugField(unique=True, help_text='Generador de url, se recomienda no modificar')
     date_created = DateTimeField(verbose_name=_('Fecha de Creado'), auto_now_add=True)
-    sites = CharField(max_length=255)
+    sites = ForeignKey(Site, on_delete=CASCADE, related_name='topic_user', verbose_name=_('Sitios'))
 
     class Meta:
         ordering = ["-date_created"]

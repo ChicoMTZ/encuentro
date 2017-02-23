@@ -22,13 +22,12 @@ class foro(ListView):
     template_name = 'sitios_web/foro/foro.html'
 
     def get(self, request, *arg, **kwargs):
-        aa = Site.objects.get_current()
-        if aa.domain == request.get_host():
+        if get_current_site(request).domain == 'localhost:8000':
             raise Http404
         return super(foro, self).get(request, *arg, **kwargs)
 
     def get_queryset(self, *args, **kwargs):
-        return Topic.objects.filter(sites=self.request.get_host()).order_by('-date_created')
+        return Topic.objects.filter(sites=get_current_site(self.request)).order_by('-date_created')
 
 
 @method_decorator(login_required, name='dispatch')
