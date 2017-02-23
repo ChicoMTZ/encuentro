@@ -8,6 +8,7 @@ from django.contrib.sites.models import Site
 
 class Profile(Model):
 
+
     user = OneToOneField(User, on_delete=CASCADE, verbose_name=_('Usuario'))
     event_url = CharField(max_length=255, verbose_name=_('Nombre Evento'))
     email = EmailField()

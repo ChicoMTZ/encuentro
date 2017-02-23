@@ -40,6 +40,7 @@ class Topic(Model):
     date_created = DateTimeField(verbose_name=_('Fecha de Creado'), auto_now_add=True)
     sites = ForeignKey(Site, on_delete=CASCADE, related_name='topic_user', verbose_name=_('Sitios'))
 
+
     class Meta:
         ordering = ["-date_created"]
 
@@ -129,5 +130,3 @@ class Forum_User_Profile(Model):
     letter = TextField(verbose_name=_('Carta Migratoria'), null=True)
     invitation_file = BooleanField(verbose_name=_('¿Email de Invitación?'), default=False)
     diploma = BooleanField(verbose_name=_('¿Email de Diploma?'), default=False)
-
-

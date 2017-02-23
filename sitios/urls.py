@@ -1,9 +1,13 @@
 from django.conf.urls import url, include
 from django.contrib import admin
 from web1.views import *
+<<<<<<< HEAD
 from web1.vistas.User import *
 from actividades.views import *
 from django.conf.urls.static import static
+=======
+from actividades.views import *
+>>>>>>> origin/master
 
 
 
@@ -14,6 +18,10 @@ extra_patterns = [
     ]
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 domains_patterns = [
 
     # Urls domains
@@ -25,6 +33,7 @@ domains_patterns = [
     url(r'^activity/(?P<speech_id>[0-9]+)/nuevo_recurso$', subirRecurso.as_view(), name='subir_recurso'),
 
 ]
+<<<<<<< HEAD
 user_patterns = [
 
     url(r'^accounts/view_profile/(?P<pk>[\w-]+)/$', view_profile.as_view(), name='View_Profile'),
@@ -42,3 +51,13 @@ urlpatterns = domains_patterns + user_patterns + extra_patterns + [
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+=======
+
+urlpatterns = domains_patterns + extra_patterns + [
+
+    url(r'^admin/', admin.site.urls),
+    url(r'^$', index, name='index'),
+    url(r'^accounts/new_user/$', createUser.as_view(), name='New_User'),
+
+]
+>>>>>>> origin/master

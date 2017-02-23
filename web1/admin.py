@@ -1,5 +1,7 @@
 from django.contrib import admin
+
 from .models import *
+from .models import Profile
 from actividades.models import *
 from django.utils.text import slugify
 from django.contrib.sites.models import Site
@@ -18,8 +20,8 @@ class TopicAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         obj.user = request.user
-        obj.slug = slugify(Site.objects.get_current().name + ' ' + obj.name)
-        obj.sites = request.get_host()
+        obj.slug = slugify(get_current_site(request).name + ' ' + obj.name)
+        obj.sites = get_current_site(request)
         obj.save()
 
 
@@ -99,7 +101,7 @@ class SpeechTypeAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         obj.user = request.user
-        obj.slug = slugify(Site.objects.get_current().name + ' ' + obj.name)
+        obj.slug = slugify(get_current_site(request).name + ' ' + obj.name)
         obj.save()
 
     def get_queryset(self, request):
