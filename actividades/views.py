@@ -6,15 +6,12 @@ from actividades.models import *
 from django.utils.decorators import method_decorator
 from django.utils.text import slugify
 from actividades.forms import *
-from django.http import Http404
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db import IntegrityError
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.urlresolvers import set_urlconf
-from django.contrib.sites.models import Site
 from django.http import Http404
-
+from django.core.exceptions import ObjectDoesNotExist
 
 @method_decorator(login_required, name='dispatch')
 class foro(ListView):
@@ -39,7 +36,10 @@ class foro_topic(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(foro_topic, self).get_context_data(**kwargs)
-        context['topic'] = Topic.objects.get(slug=self.editor, sites=get_current_site(self.request))
+        try:
+            context['topic'] = Topic.objects.get(slug=self.editor, sites=get_current_site(self.request))
+        except ObjectDoesNotExist:
+            raise Http404
         return context
 
     def get(self, request, *arg, **kwargs):
@@ -92,7 +92,6 @@ class insert_speech(SuccessMessageMixin, CreateView):
             raise Http404
         try:
             self.speech_slug = get_object_or_404(Speech, slug= self.kwargs['slug'])
-
         except Http404:
             self.topic_slug = get_object_or_404(Topic, slug= self.kwargs['slug'])
         return super(insert_speech, self).get(request, *arg, **kwargs)

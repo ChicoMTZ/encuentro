@@ -8,7 +8,6 @@ from registration import signals
 from django.conf import settings
 from django.contrib.auth.models import Group
 from django.contrib.sites.shortcuts import get_current_site
-
 from web1.models import *
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
