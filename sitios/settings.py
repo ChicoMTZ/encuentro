@@ -141,4 +141,4 @@ DEFAULT_FROM_EMAIL = 'chicomtz.sr@gmail.com'
 EMAIL_HOST = "localhost"
 EMAIL_PORT = "1025"
 STATIC_URL = '/static/'
-SITE_ID = 1
+SITE_ID = 4

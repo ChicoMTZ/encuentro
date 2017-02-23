@@ -1,10 +1,182 @@
+{% load static %}
 <!DOCTYPE html>
+{% load i18n %}
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>ECSL</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'paginas/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'paginas/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'paginas/css/jquery-ui.css' %}">
+    <script src="{% static 'paginas/js/jquery.min.js' %}"></script>
+    <script src="{% static 'paginas/js/jquery-ui.js' %}"></script>
+    <script src="{% static 'paginas/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'paginas/js/DjangoAjax.js' %}"></script>
+    <script src="{% static 'paginas/js/min-height.js' %}"></script>
+
 </head>
 <body>
+<header>
+    {% block head %}
 
+
+        <nav class="navbar navbar-default nav-main navbar-fixed-top" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li {% ifequal url "/" %}class="active"{% endifequal %}><a
+                                href="{% url 'index' %}">{% trans "Inicio" %}</a></li>
+                        <li {% ifequal url "/activity/" %}class="active"{% endifequal %}><a
+                                href="{% url 'Forum' %}">{% trans "Actividades" %}</a></li>
+{#                        <li {% ifequal url "/calender/" %}class="active"{% endifequal %}><a#}
+{#                                href="{% url 'Agenda' %}">{% trans "Agenda" %}</a></li>#}
+{#                        <li {% ifequal url "/tshirt/" %}class="active"{% endifequal %}><a#}
+{#                                href="{% url 'tshirt' %}">{% trans "Camisetas" %}</a></li>#}
+{#                        <li {% ifequal url "/becas/" %}class="active"{% endifequal %}><a#}
+{#                                href="{% url 'becas' %}">{% trans "Becas" %}</a></li>#}
+{#                        <li {% ifequal url "/faq/" %}class="active"{% endifequal %}><a#}
+{#                                href="{% url 'faq' %}">{% trans "FAQ" %}</a></li>#}
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if user.is_authenticated %}
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    {{ user.username }}{% trans " Perfil" %}
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+
+                                    <li><a href="{% url 'View_Profile' user.profile.pk %}">{% trans "Ver Perfil" %}</a>
+                                    </li>
+
+                                    <li><a href="{% url 'auth_password_change' %}">{% trans "Cambiar Contraseña" %}</a>
+                                    </li>
+                                    <li><a href="{% url 'edit_profile' user.profile.pk %}">{% trans "Editar" %}</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="{% url 'auth_logout' %}" title="Log Out">{% trans "Salir " %}</a></li>
+                        {% else %}
+                            <li {% ifequal url "/accounts/login/" %}class="active"{% endifequal %}><a
+                                    href="{% url 'auth_login' %}">{% trans "Entrar " %}</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+    {% endblock %}
+</header>
+{% block banner %}
+{% endblock %}
+<div class="container {% ifnotequal url "/" %}main-container{% endifnotequal %}">
+    <div class="row">
+        <div class="col-sm-12">
+            {% block messages %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}"><i
+                                class="fa fa-{% if message.tags == 'success' %}check{% elif message.tags == 'warning' %}exclamation{% elif message.tags == 'danger' %}minus{% else %}{{ message.tags }}{% endif %}-circle"></i>
+                            <button type="button" class="close" data-dismiss="alert"><span
+                                    aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endblock %}
+
+            {% block content %}
+            {% endblock %}
+            <div class="cd-cart-container empty">
+                <a href="#0" class="cd-cart-trigger">
+                    Compra
+                    <ul class="count"> <!-- cart items count -->
+                        <li>0</li>
+                        <li>0</li>
+                    </ul> <!-- .count -->
+                </a>
+
+                <div class="cd-cart">
+                    <div class="wrapper">
+                        <header>
+                            <h2>Compra</h2>
+                        </header>
+
+                        <div class="body">
+                            <ul>
+                                <!-- products added to the cart will be inserted here using JavaScript -->
+                            </ul>
+                        </div>
+
+{#                        <footer>#}
+{#                            <a href="{% url 'pagar_todo' %}" class="checkout"><em>Comprar - $<span>0</span></em></a>#}
+{#                        </footer>#}
+                    </div>
+                </div> <!-- .cd-cart -->
+            </div>
+        </div>
+    </div>
+</div>
+{% block fluid %}
+{% endblock %}
+{% block footer %}
+    <footer class="footer {% ifequal url "/" %}footer-home{% endifequal %}">
+        <div class="footer-container">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2 class="text-uppercase">
+                            Síguenos
+                        </h2>
+                        <ul>
+                            <li>
+                                <a><span class="fa fa-2x fa-facebook-square"></span></a>
+                            </li>
+                            <li>
+                                <a><span class="fa fa-2x fa-twitter-square"></span></a>
+                            </li>
+                            <li>
+                                <a><span class="fa fa-2x fa-linkedin-square"></span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-nav text-center">
+            <p>Alajuela, Costa Rica, 20-21 de julio de 2017</p>
+        </div>
+    </footer>
+{% endblock %}
+{% block script %}
+{% endblock %}
+    <script src="{% static 'js/cart.js' %}"></script>
+<script>
+jQuery(document).ready(function ($) {
+    {% for item in pedidos %}
+        var datacart = {
+            'amount':{{item.amount}},
+            'talla': '{{item.size}}',
+            'idshirt':{{item.pk}},
+            'price':{{item.style.price}},
+            'name': '{{item.style.name}}'
+        };
+        addToCart(datacart, {{ item.pk }});
+    {% endfor %}
+})
+</script>
 </body>
 </html>

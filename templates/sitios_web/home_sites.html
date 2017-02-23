@@ -1,18 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Este sera el home del 1er tema de los sitios dinamicos</h1>
-<a href="{% url 'Forum' %}">Actividades</a>
+{% extends 'sitios_web/base.html' %}
 
-{{ user }}
+{% load i18n %}
+{% load static %}
 
-  {% if not user.is_authenticated %}
-            <a href="{% url 'New_User' %}" class="btn btn-lg btn-register">Register</a>
-  {% endif %}
+{% block banner %}
+    <div class="banner-ecsl">
+        <div class="image-background"></div>
+        <div class="banner-opacity"></div>
+        <div class="logo-img">
+            <img src="{% static 'img/logo.png' %}" class="img-responsive">
+            <div class="promo">
+                <h3>
+                    {% trans "Costa Rica, 20-21 Julio 2017" %}
+                </h3>
+            </div>
+        </div>
 
-</body>
-</html>
+        {#        {% if not user.is_authenticated %}#}
+        {#            <a href="{% url 'New_Profile' %}" class="btn btn-lg btn-register">{% trans "Register" %}</a>#}
+        {#        {% endif %}#}
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="block-encuentro text-center">
+        <h1 class="title">Encuentro</h1>
+        <h2 class="title-2 letter-spacing-3">Centroamericano</h2>
+        <h2 class="title-2 letter-spacing-2">de Software Libre</h2>
+        <h2 class="title-anho"><span>2017</span></h2>
+        <h2 class="title-2">Alajuela, Costa Rica</h2>
+    </div>
+{% endblock %}
+
+{% block fluid %}
+    <div class="block-actividades">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h1 class="title">Propuestas de Actividades</h1>
+                    {% for type in types %}
+
+                        <div class="col-sm-4">
+                            <img src="{{ type.icons }}" class="img-responsive pull-left">
+                            <a href="{% url 'Forum_Types' type.slug %}"><h2>{{ type.name }}</h2></a>
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="block-patrocinadores">
+        <div class="container">
+            <h2 class="text-center text-uppercase patrocinadores-title">
+                <span>Patrocinadores</span>
+            </h2>
+            <div class="row patrocinadores">
+                {% for foo in imagen %}
+                    {% if forloop.counter <= 4 %}
+                        <a href="{{ foo.web }}" target="_blank"
+                           class="col-sm-4 col-md-3 patrocinador-item text-center">
+                            <div class="patrocinador-img">
+                                <img src="{{ foo.logo.url }}" class="img-responsive">
+                            </div>
+                            <span>{{ foo.name }}</span>
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
