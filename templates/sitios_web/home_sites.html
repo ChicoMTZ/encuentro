@@ -8,7 +8,9 @@
         <div class="image-background"></div>
         <div class="banner-opacity"></div>
         <div class="logo-img">
-            <img src="{% static 'img/logo.png' %}" class="img-responsive">
+            {% for object in logo %}
+                <img src="{{ object.logo.url }}" class="img-responsive">
+            {% endfor %}
             <div class="promo">
                 <h3>
                     {% trans "Costa Rica, 20-21 Julio 2017" %}

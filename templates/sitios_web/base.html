@@ -59,12 +59,12 @@
                                     <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
 
-                                    <li><a href="{% url 'View_Profile' user.profile.pk %}">{% trans "Ver Perfil" %}</a>
+{#                                    <li><a href="{% url 'View_Profile' user.profile.pk %}">{% trans "Ver Perfil" %}</a>#}
                                     </li>
 
                                     <li><a href="{% url 'auth_password_change' %}">{% trans "Cambiar Contraseña" %}</a>
                                     </li>
-                                    <li><a href="{% url 'edit_profile' user.profile.pk %}">{% trans "Editar" %}</a></li>
+{#                                    <li><a href="{% url 'edit_profile' user.profile.pk %}">{% trans "Editar" %}</a></li>#}
                                 </ul>
                             </li>
                             <li><a href="{% url 'auth_logout' %}" title="Log Out">{% trans "Salir " %}</a></li>
