@@ -21,6 +21,7 @@ def index(request):
     else:
         return render(request, 'plataforma/home.html')
 
+
 class createUser(RegistrationView):
 
     template_name = 'usuarios/create_profile.html'
