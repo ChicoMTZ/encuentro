@@ -89,7 +89,7 @@ DATABASES = {
         'NAME': 'Sitios',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': '127.0.0.1',
+        'HOST': '192.168.1.1',
         'PORT': '3306',
 
         'OPTIONS': {
@@ -134,7 +134,7 @@ USE_TZ = True
 
 
 ACCOUNT_ACTIVATION_DAYS = 10
-LOGIN_REDIRECT_URL = '/accounts/completar_registro/'
+LOGIN_REDIRECT_URL = '/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 # python -m smtpd -c DebuggingServer -n localhost:1025
@@ -145,3 +145,4 @@ EMAIL_PORT = "1025"
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+# SITE_ID = 1
