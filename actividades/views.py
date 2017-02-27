@@ -13,6 +13,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.http import Http404
 from django.core.exceptions import ObjectDoesNotExist
 
+
 @method_decorator(login_required, name='dispatch')
 class foro(ListView):
     template_name = 'sitios_web/foro/foro.html'

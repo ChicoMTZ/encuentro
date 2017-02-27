@@ -6,14 +6,8 @@ from actividades.models import *
 from django.utils.text import slugify
 from django.contrib.sites.models import Site
 from django.contrib.sites.shortcuts import get_current_site
-from django.contrib.auth.admin import Group, User
-from django.views.decorators.cache import never_cache
-from django.contrib.auth import REDIRECT_FIELD_NAME
-from django.contrib.admin.forms import AdminAuthenticationForm
-from django.utils.translation import ugettext_lazy as _
-from django.urls import NoReverseMatch, reverse
-from django.http import Http404, HttpResponseRedirect
 from web1.forms import Form_Admin
+
 
 class MyAdminSite(AdminSite):
     site_header = 'Monty Python administration'

@@ -20,7 +20,7 @@ def index(request):
     if get_current_site(request).domain != 'localhost:8000':
         return render(request, 'sitios_web/home_sites.html', {'logo': WebBuilder.objects.filter(sites=get_current_site(request))})
     else:
-        CreargruposPermisos()
+        # CreargruposPermisos()
         return render(request, 'plataforma/home.html')
 
 
