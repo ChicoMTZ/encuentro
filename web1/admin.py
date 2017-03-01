@@ -6,15 +6,7 @@ from becas.models import Inscription
 from camisetas.models import Tshirt, TshirtStyle
 from faq.models import *
 from django.utils.text import slugify
-from django.contrib.sites.models import Site
 from django.contrib.sites.shortcuts import get_current_site
-from django.contrib.auth.admin import Group, User
-from django.views.decorators.cache import never_cache
-from django.contrib.auth import REDIRECT_FIELD_NAME
-from django.contrib.admin.forms import AdminAuthenticationForm
-from django.utils.translation import ugettext_lazy as _
-from django.urls import NoReverseMatch, reverse
-from django.http import Http404, HttpResponseRedirect
 from web1.forms import Form_Admin
 
 
@@ -36,7 +28,7 @@ class TopicAdmin(admin.ModelAdmin):
         qs = super(TopicAdmin, self).get_queryset(request)
         if request.user.is_superuser:
             return qs
-        return qs.filter(user=request.user)
+        return qs.filter(sites=get_current_site(request))
 
     def save_model(self, request, obj, form, change):
         obj.user = request.user
@@ -52,7 +44,7 @@ class Pagina_web_Admin(admin.ModelAdmin):
         qs = super(Pagina_web_Admin, self).get_queryset(request)
         if request.user.is_superuser:
             return qs
-        return qs.filter(user=request.user)
+        return qs.filter(sites=get_current_site(request))
 
     def save_model(self, request, obj, form, change):
         obj.sites = get_current_site(request)
@@ -74,7 +66,7 @@ class SpeechTypeAdmin(admin.ModelAdmin):
         qs = super(SpeechTypeAdmin, self).get_queryset(request)
         if request.user.is_superuser:
             return qs
-        return qs.filter(user=request.user)
+        return qs.filter(sites=get_current_site(request))
 
 
 class ProfileAdmin(admin.ModelAdmin):
@@ -89,7 +81,7 @@ class ProfileAdmin(admin.ModelAdmin):
         qs = super(ProfileAdmin, self).get_queryset(request)
         if request.user.is_superuser:
             return qs
-        return qs.filter(user=request.user)
+        return qs.filter(sites=get_current_site(request))
 
 
 class SpeechAdmin(admin.ModelAdmin):
@@ -97,8 +89,7 @@ class SpeechAdmin(admin.ModelAdmin):
         qs = super(SpeechAdmin, self).get_queryset(request)
         if request.user.is_superuser:
             return qs
-        return qs.filter(user=request.user)
-
+        return qs.filter(sites=get_current_site(request))
 
 
 admin_site.register(Profile, ProfileAdmin)
@@ -114,6 +105,3 @@ admin_site.register(Inscription)
 admin_site.register(CategoriaPregunta)
 admin_site.register(Pregunta)
 admin_site.register(Patrocinadores, Pagina_web_Admin)
-
-
-

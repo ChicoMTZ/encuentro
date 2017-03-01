@@ -16,9 +16,9 @@ class TshirtStyle(Model):
 
     description = TextField(verbose_name=_('Descripción'))
     gender = CharField(max_length=1, choices=gender_choice, verbose_name=_('Género'))
-    img1 = ImageField(verbose_name=_('Imagen 1'), upload_to='Tshirt/')
-    img2 = ImageField(verbose_name=_('Imagen 2'), upload_to='Tshirt/')
-    img3 = ImageField(verbose_name=_('Imagen 3'), upload_to='Tshirt/')
+    img1 = ImageField(verbose_name=_('Imagen 1'), upload_to='/paginas/Tshirt/')
+    img2 = ImageField(verbose_name=_('Imagen 2'), upload_to='/paginas/Tshirt/')
+    img3 = ImageField(verbose_name=_('Imagen 3'), upload_to='/paginas/Tshirt/')
 
     name = CharField(max_length=45, verbose_name=_('Nombre'))
     price = DecimalField(verbose_name=_('Precio'), decimal_places=2, max_digits=6)
