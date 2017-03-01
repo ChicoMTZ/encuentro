@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import render
 from django.contrib.sites.models import Site
-from httpie.cli import content_type
 from registration.backends.hmac.views import RegistrationView
 from django.core.urlresolvers import set_urlconf, get_urlconf
 from registration.forms import *
@@ -20,7 +19,6 @@ def index(request):
     if get_current_site(request).domain != 'localhost:8000':
         return render(request, 'sitios_web/home_sites.html', {'sitios': WebBuilder.objects.filter(sites=get_current_site(request))})
     else:
-        # CreargruposPermisos()
         return render(request, 'plataforma/home.html')
 
 

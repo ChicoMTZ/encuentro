@@ -5,7 +5,6 @@ from becas.models import Inscription
 from django.utils.decorators import method_decorator
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.exceptions import ObjectDoesNotExist
 
 
 @method_decorator(login_required, name='dispatch')
@@ -35,7 +34,7 @@ class becas(CreateView, SuccessMessageMixin):
         elif estado.subvention_request and estado.not_registered == False and estado.registered:
             return render(self.request, 'becas/becas.html', {'estado': 'Ha sido Aprobado'})
 
-        elif estado.subvention_request and estado.not_registered and estado.registered ==False:
+        elif estado.subvention_request and estado.not_registered and estado.registered == False:
             return render(self.request, 'becas/becas.html', {'estado': 'Denegado'})
         elif estado.subvention_request and estado.not_registered == False and estado.registered == False:
             return render(self.request, 'becas/becas.html', {'estado': 'Analizando'})

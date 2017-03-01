@@ -20,7 +20,7 @@ class Pregunta(Model):
     fechaCreacion = DateField(verbose_name=_('Fecha de Creación'), auto_now_add=True)
     publicada = BooleanField(verbose_name=_('Publicado'))
     pregunta = TextField(verbose_name=_('Pregunta'))
-    sites = OneToOneField(Site, on_delete=CASCADE, verbose_name=_('Sitios'))
+    sites = ForeignKey(Site, on_delete=CASCADE, verbose_name=_('Sitios'))
 
     def __str__(self):
         return self.pregunta

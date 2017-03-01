@@ -13,7 +13,7 @@ class Inscription(Model):
     not_registered = BooleanField(verbose_name=_('No aprobado'), default=False)
     registered = BooleanField(verbose_name=_('Aprobado'), default=False)
     subvention_request = BooleanField(verbose_name=_('¿Propuesta Enviada?'), default=False)
-    sites = OneToOneField(Site, on_delete=CASCADE, verbose_name=_('Sitios'))
+    sites = ForeignKey(Site, on_delete=CASCADE, verbose_name=_('Sitios'))
 
     def __str__(self):
         return self.user.username

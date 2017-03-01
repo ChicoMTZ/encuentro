@@ -66,9 +66,8 @@
                         <a href="{{ foo.web }}" target="_blank"
                            class="col-sm-4 col-md-3 patrocinador-item text-center">
                             <div class="patrocinador-img">
-                                <img src="{{ foo.logo.url }}" class="img-responsive">
+                                <img src="{{ foo.logo.url }}" class="img-responsive" title="{{ foo.name }}">
                             </div>
-                            <span>{{ foo.name }}</span>
                         </a>
                     {% endif %}
                 {% endfor %}

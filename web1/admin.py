@@ -99,7 +99,7 @@ class SpeechAdmin(admin.ModelAdmin):
 
 
 class PatrocinadoresAdmin(admin.ModelAdmin):
-    exclude = ('sites',)
+    exclude = ('user',)
 
     def get_queryset(self, request):
         qs = super(PatrocinadoresAdmin, self).get_queryset(request)
@@ -108,7 +108,8 @@ class PatrocinadoresAdmin(admin.ModelAdmin):
         return qs.filter(user=request.user)
 
     def save_model(self, request, obj, form, change):
-        obj.sites = get_current_site(request)
+
+        obj.user = request.user
         obj.save()
 
 

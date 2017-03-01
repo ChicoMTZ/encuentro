@@ -29,7 +29,8 @@ class Patrocinadores(Model):
     name = CharField(max_length=100, verbose_name=_('Nombre'))
     web = URLField(verbose_name=_('Web'))
     logo = ImageField(verbose_name=_('logo'), upload_to='logos/')
-    sites = OneToOneField(Site, on_delete=CASCADE, verbose_name=_('Sitios'))
+    user = ForeignKey(User, on_delete=CASCADE, verbose_name=_('Usuario'))
+    sites = ForeignKey(Site, on_delete=CASCADE, verbose_name=_('Sitios'))
 
     def __unicode__(self):
         return '%s' % self.name
@@ -42,7 +43,8 @@ class enlaces(Model):
     )
     red_social = CharField(max_length=8, verbose_name=_('Red social'), choices=redes)
     direccion = URLField(verbose_name=_('Direccion'))
-    sites = OneToOneField(Site, on_delete=CASCADE, verbose_name=_('Sitios'))
+    user = ForeignKey(User, on_delete=CASCADE, verbose_name=_('Usuario'))
+    sites = ForeignKey(Site, on_delete=CASCADE, verbose_name=_('Sitios'))
 
     def __unicode__(self):
         return '%s' % self.sites
@@ -53,7 +55,8 @@ class WebBuilder (Model):
     WebLogo = ImageField(verbose_name=_('Logo'), upload_to='paginas/logos/')
     banner = ImageField(verbose_name=_('Banner'), upload_to='paginas/banner/')
     slogan = CharField(max_length=100, verbose_name=_('Slogan'))
-    sites = OneToOneField(Site, on_delete=CASCADE, verbose_name=_('Sitios'))
+    user = ForeignKey(User, on_delete=CASCADE, verbose_name=_('Usuario'))
+    sites = ForeignKey(Site, on_delete=CASCADE, verbose_name=_('Sitios'))
 
     def __unicode__(self):
         return '%s' % self.sites

@@ -42,8 +42,8 @@
                                 href="{% url 'index' %}">{% trans "Inicio" %}</a></li>
                         <li {% ifequal url "/activity/" %}class="active"{% endifequal %}><a
                                 href="{% url 'activity:Forum' %}">{% trans "Actividades" %}</a></li>
-{#                        <li {% ifequal url "/calender/" %}class="active"{% endifequal %}><a#}
-{#                                href="{% url 'Agenda' %}">{% trans "Agenda" %}</a></li>#}
+                        {#                        <li {% ifequal url "/calender/" %}class="active"{% endifequal %}><a#}
+                        {#                                href="{% url 'Agenda' %}">{% trans "Agenda" %}</a></li>#}
                         <li {% ifequal url "/tshirts/" %}class="active"{% endifequal %}><a
                                 href="{% url 'tshirts:tshirt' %}">{% trans "Camisetas" %}</a></li>
                         <li {% ifequal url "/becas/" %}class="active"{% endifequal %}><a
@@ -59,15 +59,15 @@
                                     <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
 
-{#                                    <li><a href="{% url 'View_Profile' user.profile.pk %}">{% trans "Ver Perfil" %}</a>#}
+                                    {#                                    <li><a href="{% url 'View_Profile' user.profile.pk %}">{% trans "Ver Perfil" %}</a>#}
                                     </li>
 
                                     <li><a href="{% url 'auth_password_change' %}">{% trans "Cambiar Contraseña" %}</a>
                                     </li>
-{#                                    <li><a href="{% url 'edit_profile' user.profile.pk %}">{% trans "Editar" %}</a></li>#}
+                                    {#                                    <li><a href="{% url 'edit_profile' user.profile.pk %}">{% trans "Editar" %}</a></li>#}
                                 </ul>
                             </li>
-                            <li><a href="{% url 'auth_logout' %}" title="Log Out">{% trans "Salir " %}</a></li>
+                            <li><a href="{% url 'auth_logout' %}" title="Log Out"><i class="fa fa-power-off"></i></a></li>
                         {% else %}
                             <li {% ifequal url "/accounts/login/" %}class="active"{% endifequal %}><a
                                     href="{% url 'auth_login' %}">{% trans "Entrar " %}</a></li>
@@ -112,20 +112,28 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12">
-                        <h2 class="text-uppercase">
-                            Síguenos
-                        </h2>
-                        <ul>
-                            <li>
-                                <a><span class="fa fa-2x fa-facebook-square"></span></a>
-                            </li>
-                            <li>
-                                <a><span class="fa fa-2x fa-twitter-square"></span></a>
-                            </li>
-                            <li>
-                                <a><span class="fa fa-2x fa-linkedin-square"></span></a>
-                            </li>
-                        </ul>
+                        <div class="footer-left">
+
+                        </div>
+                        <div class="footer-center">
+
+                        </div>
+                        <div class="footer-right pull-right">
+                            <h2 class="text-uppercase">
+                                Síguenos
+                            </h2>
+                            <ul class="links">
+                                <li>
+                                    <a><span class="fa fa-2x fa-facebook-square"></span></a>
+                                </li>
+                                <li>
+                                    <a><span class="fa fa-2x fa-twitter-square"></span></a>
+                                </li>
+                                <li>
+                                    <a><span class="fa fa-2x fa-linkedin-square"></span></a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -137,18 +145,18 @@
 {% endblock %}
 {% block script %}
 {% endblock %}
-    <script src="{% static 'paginas/js/cart.js' %}"></script>
+<script src="{% static 'paginas/js/cart.js' %}"></script>
 <script>
-jQuery(document).ready(function ($) {
-    {% for item in pedidos %}
-        var datacart = {
-            'amount':{{item.amount}},
-            'talla': '{{item.size}}',
-            'idshirt':{{item.pk}},
-            'price':{{item.style.price}},
-            'name': '{{item.style.name}}'
-        };
-        addToCart(datacart, {{ item.pk }});
-    {% endfor %}
-})
+    jQuery(document).ready(function ($) {
+        {% for item in pedidos %}
+            var datacart = {
+                'amount':{{item.amount}},
+                'talla': '{{item.size}}',
+                'idshirt':{{item.pk}},
+                'price':{{item.style.price}},
+                'name': '{{item.style.name}}'
+            };
+            addToCart(datacart, {{ item.pk }});
+        {% endfor %}
+    })
 </script>

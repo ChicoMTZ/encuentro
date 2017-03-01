@@ -22,7 +22,7 @@ class TshirtStyle(Model):
 
     name = CharField(max_length=45, verbose_name=_('Nombre'))
     price = DecimalField(verbose_name=_('Precio'), decimal_places=2, max_digits=6)
-    sites = OneToOneField(Site, on_delete=CASCADE, verbose_name=_('Sitios'))
+    sites = ForeignKey(Site, on_delete=CASCADE, verbose_name=_('Sitios'))
 
     def __str__(self):
         return self.name
