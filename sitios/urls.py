@@ -4,6 +4,7 @@ from web1.vistas.User import *
 from django.conf.urls.static import static
 from web1.admin import admin_site
 
+from web1.admin import admin_site
 
 extra_patterns = [
 
