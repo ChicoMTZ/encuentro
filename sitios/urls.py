@@ -5,6 +5,7 @@ from django.conf.urls.static import static
 from web1.admin import admin_site
 from django.conf import settings
 
+from web1.admin import admin_site
 
 extra_patterns = [
 
