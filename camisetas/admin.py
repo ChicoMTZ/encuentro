@@ -1,8 +1,5 @@
 from django.contrib import admin
 from camisetas.models import *
-from django.core.mail import send_mail
-from django.core.mail import EmailMessage
-from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
 from web1.admin import admin_site
 

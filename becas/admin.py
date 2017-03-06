@@ -1,6 +1,5 @@
 from django.contrib import admin
 from becas.models import Inscription
-# Register your models here.
 from web1.admin import admin_site
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
