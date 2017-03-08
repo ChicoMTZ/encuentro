@@ -3,6 +3,7 @@ from django.contrib.admin import site, AdminSite
 from .models import *
 from django.contrib.sites.shortcuts import get_current_site
 from web1.forms import Form_Admin
+from PIL import Image
 
 
 class MyAdminSite(AdminSite):
@@ -62,6 +63,22 @@ class SpeechAdmin(admin.ModelAdmin):
         obj.save()
 
 
+class Patrocinadores_Admin(admin.ModelAdmin):
+    exclude = ('user', 'sites')
+
+    def get_queryset(self, request):
+        qs = super(Patrocinadores_Admin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(sites=get_current_site(request))
+
+    def save_model(self, request, obj, form, change):
+        obj.sites = get_current_site(request)
+        im = Image.open(obj.logo, mode='r')
+        im.save('peca', 'jpeg')
+        obj.user = request.user
+        obj.save()
+
 admin_site.register(Profile, ProfileAdmin)
 admin_site.register(WebBuilder, Pagina_web_Admin)
-admin_site.register(Patrocinadores, Pagina_web_Admin)
+admin_site.register(Patrocinadores, Patrocinadores_Admin)

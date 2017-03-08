@@ -18,9 +18,9 @@ class SpeechType(Model):
     )
 
     speech_icons = (
-        (settings.STATIC_URL + 'img/talleres.png', 'Talleres'),
-        (settings.STATIC_URL + 'img/charlas.png', 'Charlas'),
-        (settings.STATIC_URL + 'img/dialogos.png', 'Diálogos')
+        (settings.STATIC_URL + 'paginas/img/talleres.png', 'Talleres'),
+        (settings.STATIC_URL + 'paginas/img/charlas.png', 'Charlas'),
+        (settings.STATIC_URL + 'paginas/img/dialogos.png', 'Diálogos')
     )
     user = ForeignKey(User, on_delete=CASCADE, related_name='speechs_type_user', verbose_name=_('Usuario'))
     name = CharField(max_length=45, verbose_name=_('Nombre'), choices=speech_choice)
