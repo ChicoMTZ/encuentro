@@ -19,7 +19,7 @@ extra_patterns = [
 
 user_patterns = [
 
-    url(r'^accounts/view_profile/(?P<pk>[\w-]+)/$', view_profile_admin.as_view(), name='View_Profile'),
+    url(r'^accounts/view_profile/(?P<pk>[\w-]+)/$', view_profile_admin.as_view(), name='View_Profile_Admin'),
     url(r'^accounts/new_user/$', createUser.as_view(), name='New_User'),
     url(r'^accounts/new_profile/$', createProfile.as_view(), name='New_Profile'),
     url(r'^accounts/logout/$', salir, name='salir'),

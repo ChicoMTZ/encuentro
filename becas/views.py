@@ -5,7 +5,7 @@ from becas.models import Inscription
 from django.utils.decorators import method_decorator
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.sites.shortcuts import get_current_site
-
+from django.http import Http404
 
 @method_decorator(login_required, name='dispatch')
 class becas(CreateView, SuccessMessageMixin):
@@ -41,3 +41,8 @@ class becas(CreateView, SuccessMessageMixin):
 
     def get_queryset(self):
         return Inscription.objects.filter(sites=get_current_site(self.request))
+
+    def get(self, request, *arg, **kwargs):
+        if get_current_site(request).domain == 'localhost:8000':
+            raise Http404
+        return super(becas, self).get(request, *arg, **kwargs)

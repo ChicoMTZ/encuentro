@@ -106,5 +106,5 @@ def entrar(request):
 
 @method_decorator(login_required, name='dispatch')
 class view_profile_admin(DetailView):
-    template_name = 'usuarios_foro/view_profile.html'
-    model = Forum_User_Profile
+    template_name = 'usuarios/view_profile.html'
+    model = Profile

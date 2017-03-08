@@ -9,6 +9,7 @@ from django.http import JsonResponse, HttpResponseBadRequest
 from camisetas.forms import TshirtForm
 from django.utils.timezone import now
 from django.contrib.sites.shortcuts import get_current_site
+from django.http import Http404
 
 
 @method_decorator(login_required, name='dispatch')
@@ -24,6 +25,10 @@ class tshirt_list(ListView):
     def get_queryset(self):
         return TshirtStyle.objects.filter(sites=get_current_site(self.request))
 
+    def get(self, request, *arg, **kwargs):
+        if get_current_site(request).domain == 'localhost:8000':
+            raise Http404
+        return super(tshirt_list, self).get(request, *arg, **kwargs)
 
 class createCamiseta(CreateView, LoginRequiredMixin):
     template_name = 'camisetas/crear_camiseta.html'
@@ -37,6 +42,10 @@ class createCamiseta(CreateView, LoginRequiredMixin):
         form.instance.last_update = now()
         return super(createCamiseta, self).form_valid(form)
 
+    def get(self, request, *arg, **kwargs):
+        if get_current_site(request).domain == 'localhost:8000':
+            raise Http404
+        return super(createCamiseta, self).get(request, *arg, **kwargs)
 
 class Carrito(ListView, LoginRequiredMixin):
     template_name = 'camisetas/carrito.html'
@@ -44,6 +53,11 @@ class Carrito(ListView, LoginRequiredMixin):
 
     def get_queryset(self):
         return Tshirt.objects.filter(pagada=False, style__sites=get_current_site(self.request))
+
+    def get(self, request, *arg, **kwargs):
+        if get_current_site(request).domain == 'localhost:8000':
+            raise Http404
+        return super(Carrito, self).get(request, *arg, **kwargs)
 
 
 # pagar un solo pedido

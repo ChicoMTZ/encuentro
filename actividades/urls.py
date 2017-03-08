@@ -12,6 +12,6 @@ urlpatterns = [
 
     url(r'^create_profile/(?P<pk>[0-9]+)$', createProfile.as_view(), name='create_profile'),
     url(r'^edit_profile/(?P<pk>[0-9]+)$', ProfileUpdateView.as_view(), name='edit_profile'),
-    url(r'^view_profile/(?P<pk>[\w-]+)/$', view_profile.as_view(), name='View_Profile'),
+    url(r'^view_profile_forum/(?P<pk>[\w-]+)/$', view_profile.as_view(), name='View_Profile'),
 
 ]

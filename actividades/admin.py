@@ -38,6 +38,6 @@ class TopicAdmin(admin.ModelAdmin):
 
 admin_site.register(Forum_User_Profile, SpeechAdmin)
 admin_site.register(Speech, SpeechAdmin)
-admin_site.register(SpeechType, SpeechAdmin)
+admin_site.register(SpeechType, TopicAdmin)
 admin_site.register(SpeechResource, SpeechAdmin)
 admin_site.register(Topic, TopicAdmin)
