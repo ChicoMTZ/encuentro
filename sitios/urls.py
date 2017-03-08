@@ -4,7 +4,7 @@ from web1.vistas.User import *
 from django.conf.urls.static import static
 from django.conf import settings
 from web1.admin import admin_site
-from actividades.views import *
+from web1.ajax import matricularse, deleteMatricularse, profileAddLike, deleteRecurso
 
 extra_patterns = [
 
@@ -33,6 +33,7 @@ ajax_patterns = [
     url(r'^ajax/delete_enroll/', deleteMatricularse, name='ajax_delete_matricula'),
     # Esto es lo de dar like -------------------------
     url(r'^ajax/add_like/$', profileAddLike, name='add_like'),
+    url(r'^ajax/delete_recurso/', deleteRecurso, name='ajax_delete_recurso'),
 ]
 
 

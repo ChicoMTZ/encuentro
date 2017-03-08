@@ -123,6 +123,7 @@ class subirRecurso(CreateView):
     def form_valid(self, form):
         form.instance.speech = get_object_or_404(Speech, pk=self.kwargs['speech_id'])
         form.instance.user = self.request.user
+        form.instance.sites = get_current_site(self.request)
         return super(subirRecurso, self).form_valid(form)
 
     def get(self, request, *arg, **kwargs):
@@ -164,28 +165,3 @@ class view_profile_forum(DetailView):
         return super(view_profile_forum, self).get(request, *arg, **kwargs)
 
 
-@login_required()
-def profileAddLike(request):
-    profile = request.user.forum_user_profile
-    idSpeech = request.POST['id_speech']
-    speech = get_object_or_404(Speech, pk=idSpeech)
-    profile.likes.add(speech)
-    return JsonResponse({'messages': "Me gusta confirmado"})
-
-
-@login_required()
-def matricularse(request):
-    profile = request.user.forum_user_profile
-    idSpeech = request.POST['id_speech']
-    speech = get_object_or_404(Speech, pk=idSpeech)
-    profile.matriculatedspeechs.add(speech)
-    return JsonResponse({'messages': "Matricula confirmada"})
-
-
-@login_required()
-def deleteMatricularse(request):
-    profile = request.user.forum_user_profile
-    idSpeech = request.POST['id_speech']
-    speech = get_object_or_404(Speech, pk=idSpeech)
-    profile.matriculatedspeechs.remove(speech)
-    return JsonResponse({'mensaje': "Matricula eliminada"})
