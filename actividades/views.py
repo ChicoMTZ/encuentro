@@ -11,7 +11,7 @@ from django.db import IntegrityError
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import Http404
 from django.core.exceptions import ObjectDoesNotExist
-from registration.backends.hmac.views import RegistrationView
+from django.http import JsonResponse, HttpResponseBadRequest
 
 
 @method_decorator(login_required, name='dispatch')
@@ -154,11 +154,38 @@ class ProfileUpdateView(SuccessMessageMixin, UpdateView):
 
 
 @method_decorator(login_required, name='dispatch')
-class view_profile(DetailView):
+class view_profile_forum(DetailView):
     template_name = 'usuarios_foro/view_profile.html'
     model = Forum_User_Profile
 
     def get(self, request, *arg, **kwargs):
         if get_current_site(request).domain == 'localhost:8000':
             raise Http404
-        return super(view_profile, self).get(request, *arg, **kwargs)
+        return super(view_profile_forum, self).get(request, *arg, **kwargs)
+
+
+@login_required()
+def profileAddLike(request):
+    profile = request.user.forum_user_profile
+    idSpeech = request.POST['id_speech']
+    speech = get_object_or_404(Speech, pk=idSpeech)
+    profile.likes.add(speech)
+    return JsonResponse({'messages': "Me gusta confirmado"})
+
+
+@login_required()
+def matricularse(request):
+    profile = request.user.forum_user_profile
+    idSpeech = request.POST['id_speech']
+    speech = get_object_or_404(Speech, pk=idSpeech)
+    profile.matriculatedspeechs.add(speech)
+    return JsonResponse({'messages': "Matricula confirmada"})
+
+
+@login_required()
+def deleteMatricularse(request):
+    profile = request.user.forum_user_profile
+    idSpeech = request.POST['id_speech']
+    speech = get_object_or_404(Speech, pk=idSpeech)
+    profile.matriculatedspeechs.remove(speech)
+    return JsonResponse({'mensaje': "Matricula eliminada"})

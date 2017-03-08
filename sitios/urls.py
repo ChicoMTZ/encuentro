@@ -2,10 +2,9 @@ from django.conf.urls import url, include
 from web1.views import *
 from web1.vistas.User import *
 from django.conf.urls.static import static
-from web1.admin import admin_site
 from django.conf import settings
-
 from web1.admin import admin_site
+from actividades.views import *
 
 extra_patterns = [
 
@@ -28,8 +27,16 @@ user_patterns = [
     url(r'^accounts/login/$', entrar, name='entrar'),
 
 ]
+ajax_patterns = [
+        # Esto es lo de matricularse ------------
+    url(r'^ajax/enroll/', matricularse, name='ajax_matricula'),
+    url(r'^ajax/delete_enroll/', deleteMatricularse, name='ajax_delete_matricula'),
+    # Esto es lo de dar like -------------------------
+    url(r'^ajax/add_like/$', profileAddLike, name='add_like'),
+]
 
-urlpatterns = user_patterns + extra_patterns + [
+
+urlpatterns = user_patterns + extra_patterns + ajax_patterns + [
 
     url(r'^admin/', admin_site.urls),
     url(r'^$', index, name='index'),
